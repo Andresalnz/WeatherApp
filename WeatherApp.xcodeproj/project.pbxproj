@@ -11,6 +11,7 @@
 		9F0C75E22B330F7200DF1CB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75E12B330F7200DF1CB7 /* ContentView.swift */; };
 		9F0C75E42B330F7300DF1CB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0C75E32B330F7300DF1CB7 /* Assets.xcassets */; };
 		9F0C75E72B330F7300DF1CB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0C75E62B330F7300DF1CB7 /* Preview Assets.xcassets */; };
+		9F0C75F02B3311EC00DF1CB7 /* WeatherHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		9F0C75E12B330F7200DF1CB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9F0C75E32B330F7300DF1CB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F0C75E62B330F7300DF1CB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		9F0C75DE2B330F7200DF1CB7 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				9F0C75ED2B33115D00DF1CB7 /* UseCases */,
 				9F0C75DF2B330F7200DF1CB7 /* WeatherAppApp.swift */,
 				9F0C75E12B330F7200DF1CB7 /* ContentView.swift */,
 				9F0C75E32B330F7300DF1CB7 /* Assets.xcassets */,
@@ -65,6 +68,22 @@
 				9F0C75E62B330F7300DF1CB7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9F0C75ED2B33115D00DF1CB7 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75EE2B33119400DF1CB7 /* Home */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		9F0C75EE2B33119400DF1CB7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0C75F02B3311EC00DF1CB7 /* WeatherHomeView.swift in Sources */,
 				9F0C75E22B330F7200DF1CB7 /* ContentView.swift in Sources */,
 				9F0C75E02B330F7200DF1CB7 /* WeatherAppApp.swift in Sources */,
 			);
