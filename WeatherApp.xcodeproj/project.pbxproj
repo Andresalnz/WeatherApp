@@ -12,6 +12,9 @@
 		9F0C75E42B330F7300DF1CB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0C75E32B330F7300DF1CB7 /* Assets.xcassets */; };
 		9F0C75E72B330F7300DF1CB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0C75E62B330F7300DF1CB7 /* Preview Assets.xcassets */; };
 		9F0C75F02B3311EC00DF1CB7 /* WeatherHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */; };
+		9F0C75F72B3346A900DF1CB7 /* CurrentWeatherDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75F62B3346A900DF1CB7 /* CurrentWeatherDTO.swift */; };
+		9F0C75F92B33537500DF1CB7 /* CurrentWeatherBO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75F82B33537500DF1CB7 /* CurrentWeatherBO.swift */; };
+		9F0C75FB2B3C4BD100DF1CB7 /* CurrentWeatherMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C75FA2B3C4BD100DF1CB7 /* CurrentWeatherMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,9 @@
 		9F0C75E32B330F7300DF1CB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F0C75E62B330F7300DF1CB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeView.swift; sourceTree = "<group>"; };
+		9F0C75F62B3346A900DF1CB7 /* CurrentWeatherDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherDTO.swift; sourceTree = "<group>"; };
+		9F0C75F82B33537500DF1CB7 /* CurrentWeatherBO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherBO.swift; sourceTree = "<group>"; };
+		9F0C75FA2B3C4BD100DF1CB7 /* CurrentWeatherMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 		9F0C75DE2B330F7200DF1CB7 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				9F0C75F12B3345E700DF1CB7 /* Model */,
 				9F0C75ED2B33115D00DF1CB7 /* UseCases */,
 				9F0C75DF2B330F7200DF1CB7 /* WeatherAppApp.swift */,
 				9F0C75E12B330F7200DF1CB7 /* ContentView.swift */,
@@ -84,6 +91,48 @@
 				9F0C75EF2B3311EC00DF1CB7 /* WeatherHomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		9F0C75F12B3345E700DF1CB7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75F22B3345F400DF1CB7 /* CurrentWheather */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9F0C75F22B3345F400DF1CB7 /* CurrentWheather */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75F52B33465A00DF1CB7 /* DTO */,
+				9F0C75F42B33465400DF1CB7 /* BO */,
+				9F0C75F32B33464900DF1CB7 /* Mapper */,
+			);
+			path = CurrentWheather;
+			sourceTree = "<group>";
+		};
+		9F0C75F32B33464900DF1CB7 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75FA2B3C4BD100DF1CB7 /* CurrentWeatherMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		9F0C75F42B33465400DF1CB7 /* BO */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75F82B33537500DF1CB7 /* CurrentWeatherBO.swift */,
+			);
+			path = BO;
+			sourceTree = "<group>";
+		};
+		9F0C75F52B33465A00DF1CB7 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75F62B3346A900DF1CB7 /* CurrentWeatherDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +205,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0C75F72B3346A900DF1CB7 /* CurrentWeatherDTO.swift in Sources */,
+				9F0C75FB2B3C4BD100DF1CB7 /* CurrentWeatherMapper.swift in Sources */,
+				9F0C75F92B33537500DF1CB7 /* CurrentWeatherBO.swift in Sources */,
 				9F0C75F02B3311EC00DF1CB7 /* WeatherHomeView.swift in Sources */,
 				9F0C75E22B330F7200DF1CB7 /* ContentView.swift in Sources */,
 				9F0C75E02B330F7200DF1CB7 /* WeatherAppApp.swift in Sources */,
