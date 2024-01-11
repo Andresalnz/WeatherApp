@@ -28,7 +28,7 @@ struct Interactor: WeatherInteractor {
     }
     
     func getWeather() async throws -> CurrentWeatherDTO {
-        try await getJSON(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Madrid&appid=75132dd2912fe64cbee0ce39cda9eeac")!, type: CurrentWeatherDTO.self)
+        try await getJSON(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Cadiz&appid=75132dd2912fe64cbee0ce39cda9eeac&units=metric")!, type: CurrentWeatherDTO.self)
     }
     
     
