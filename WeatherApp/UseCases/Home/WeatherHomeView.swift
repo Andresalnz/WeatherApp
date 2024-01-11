@@ -8,79 +8,87 @@
 import SwiftUI
 
 struct WeatherHomeView: View {
+    
+    @StateObject var viewModel: WeatherHomeViewModel
+    
     var body: some View {
-        
-        VStack(alignment: .center) {
-            Text("Madrid")
-                .bold()
-                .font(.system(size: 70))
-            HStack {
-                Text("Min: 14º ")
-                Text("Max: 23º")
-            }
-            
-            HStack {
-                Text("13º")
-                    .font(.system(size: 130))
-                AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/01d@2x.png")) { image in
-                    image.resizable()
-                        .frame(width: 150, height: 150)
-                } placeholder: {
-                    ProgressView()
+        VStack {
+            VStack(alignment: .center) {
+                Text(viewModel.actualWeather.name ?? "")
+                    .bold()
+                    .font(.system(size: 70))
+                HStack {
+                    Text("Día: \(viewModel.actualWeather.temperatures?.tempMax ?? 1)º")
+                    Text("Noche: \(viewModel.actualWeather.temperatures?.tempMin ?? 1)º")
+                }
+                
+                HStack {
+                    Text("\(viewModel.actualWeather.temperatures?.temp ?? 1)º")
+                        .font(.system(size: 130))
+                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/09n@2x.png")) { image in
+                        image.resizable()
+                            .frame(width: 150, height: 150)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                }
+                
+                HStack {
+                    Text("Sensación termica: \(viewModel.actualWeather.temperatures?.feeling ?? 0)º")
+                    Text("-")
+                    Text(viewModel.actualWeather.weather?.first?.stateSky ?? "")
+                    
                 }
             }
             
-            HStack {
-                Text("Sensación termica: 13º")
-                Text("-")
-                Text("Estado del cielo: Soleado")
+            Divider()
+            Group {
+                HStack(spacing: 100) {
+                    Text("Humedad")
+                    Text("\(viewModel.actualWeather.temperatures?.humidity ?? 0) %")
+                }
+                
+                HStack(spacing: 100) {
+                    Text("Presion")
+                    Text("\(viewModel.actualWeather.temperatures?.pressure ?? 0) hPA")
+                }
+                
+                HStack(spacing: 100) {
+                    Text("Velocidad del viento")
+                    
+                    Text("\(viewModel.actualWeather.wind?.speed ?? 0) meter/sec")
+                }
+                
+                HStack(spacing: 100) {
+                    Text("Visibilidad")
+                    Text("\(viewModel.actualWeather.visibility ?? 0) km")
+                }
                 
             }
-        }
-        Divider()
-        Group {
-            HStack(spacing: 250) {
-                Text("Humedad")
-                Text("85%")
-            }
+            .padding(.top)
+            Divider()
             
-            HStack(spacing: 250) {
-                Text("Presion")
-                Text("85%")
+            HStack(spacing: 50) {
+                VStack {
+                    Image(systemName: "sunrise")
+                        .symbolRenderingMode(.multicolor)
+                    Text(viewModel.actualWeather.sun?.sunrise ?? .distantPast, style: .time)
+                }
+                
+                VStack {
+                    Image(systemName: "sunset")
+                        .symbolRenderingMode(.multicolor)
+                    Text(viewModel.actualWeather.sun?.sunset ?? .now, style: .time)
+                }
             }
-           
-            HStack(spacing: 250) {
-                Text("Velocidad del viento")
-                Text("85%")
-            }
-            
-            HStack(spacing: 250) {
-                Text("Visibilidad")
-                Text("85%")
-            }
-           
+            .padding(.vertical)
         }
-        .padding(.top)
-        Divider()
-        
-        HStack(spacing: 50) {
-            VStack {
-                Image(systemName: "sunrise")
-                    .symbolRenderingMode(.multicolor)
-                Text("8:45")
-            }
-           
-            VStack {
-                Image(systemName: "sunset")
-                    .symbolRenderingMode(.multicolor)
-                Text("8:45")
-            }
+        .onAppear {
+            viewModel.loadUI()
         }
-        .padding(.vertical)
-        
     }
 }
 
 #Preview {
-    WeatherHomeView()
+    WeatherHomeView(viewModel: WeatherHomeViewModel())
 }
