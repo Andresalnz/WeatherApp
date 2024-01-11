@@ -17,7 +17,7 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
     var clouds: InfoCloudsBO?
     var dt: Date?
     var sun: InfoSunBO?
-    var timeZone: Date?
+    var timerZone: Double?
     let id: Int?
     var name: String?
     var cod: Int?
@@ -31,8 +31,8 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
         case wind
         case clouds
         case dt
-        case sun
-        case timeZone
+        case sun = "sys"
+        case timerZone = "timezone"
         case id
         case name
         case cod
@@ -40,7 +40,7 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
 }
 
 struct CoordinateBO: Codable,Identifiable, Hashable {
-    let id: Int
+    let id: Int?
     var longitude: Double?
     var latitude: Double?
 }
@@ -48,16 +48,24 @@ struct CoordinateBO: Codable,Identifiable, Hashable {
 struct InfoWeatherBO: Codable, Identifiable, Hashable {
     var id: Int?
     var main: String?
-    var description: String?
+    var stateSky: String?
     var icon: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case main
+        case stateSky = "description"
+        case icon
+      
+    }
 }
 
 struct InfoTemperatureBO: Codable, Identifiable, Hashable {
-    let id: Int
-    var temp: Double?
-    var feeling: Double?
-    var tempMin: Double?
-    var tempMax: Double?
+    let id: Int?
+    var temp: Int?
+    var feeling: Int?
+    var tempMin: Int?
+    var tempMax: Int?
     var pressure: Int?
     var humidity: Int?
     
@@ -73,13 +81,13 @@ struct InfoTemperatureBO: Codable, Identifiable, Hashable {
 }
 
 struct InfoWindBO: Codable, Identifiable, Hashable {
-    let id: Int
-    var speed: Double?
+    let id: Int?
+    var speed: Int?
     var deg: Double?
 }
 
 struct InfoCloudsBO: Codable, Identifiable, Hashable {
-    let id: Int
+    let id: Int?
     var percentageClouds: Int?
     
     enum CodingKeys: String, CodingKey {
