@@ -12,14 +12,18 @@ protocol WeatherInteractor {
 }
 
 struct Interactor: WeatherInteractor {
+    
+    static let shared = Interactor()
+    
     func getJSON<T>(url: URL?, type: T.Type) async throws -> T where T: Codable {
         guard let url = url else { throw fatalError() }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let wheaterModel = try JSONDecoder().decode(type, from: data)
+            print(wheaterModel)
             return wheaterModel
-        } catch  {
-            throw fatalError()
+        } catch let err  {
+            throw err
         }
     }
     
