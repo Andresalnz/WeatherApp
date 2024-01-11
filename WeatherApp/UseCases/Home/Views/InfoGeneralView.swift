@@ -14,13 +14,13 @@ struct InfoGeneralView: View {
     var body: some View {
         Divider()
         HStack(spacing: 50) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 15) {
                 Text("\(Constants.humidity)")
                 Text("\(Constants.pressure)")
                 Text("\(Constants.windSpeed)")
                 Text("\(Constants.visibility)")
             }
-            VStack(alignment: .trailing) {
+            VStack(alignment: .trailing, spacing: 15) {
                 Text("\(viewModel.actualWeather.temperatures?.humidity ?? 0) \(Constants.percentage)")
                 Text("\(viewModel.actualWeather.temperatures?.pressure ?? 0) \(Constants.hectopascal)")
                 Text("\(viewModel.actualWeather.wind?.speed ?? 0) \(Constants.meterSec)")

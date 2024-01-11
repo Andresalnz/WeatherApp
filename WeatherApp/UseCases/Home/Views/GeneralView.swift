@@ -15,6 +15,7 @@ struct GeneralView<Content: View>: View where Content: View  {
         VStack {
             content
         }
+        .padding(.vertical)
     }
 }
 

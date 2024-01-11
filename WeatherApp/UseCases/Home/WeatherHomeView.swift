@@ -12,7 +12,7 @@ struct WeatherHomeView: View {
     @StateObject var viewModel: WeatherHomeViewModel
     
     var body: some View {
-        Group {
+        VStack(alignment: .center) {
             GeneralView(content: InfoCityAndTempView().environmentObject(viewModel))
             GeneralView(content: InfoGeneralView().environmentObject(viewModel))
             GeneralView(content: InfoSunHour().environmentObject(viewModel))

@@ -24,7 +24,7 @@ struct InfoCityAndTempView: View {
             HStack {
                 Text("\(viewModel.actualWeather.temperatures?.temp ?? 1)\(Constants.acronymTemp)")
                     .font(.system(size: 130))
-                AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/09n@2x.png")) { image in
+                AsyncImage(url: URL(string: "\(Constants.uriImage)\(viewModel.actualWeather.weather?.first?.icon ?? "")@2x.png")) { image in
                     image.resizable()
                         .frame(width: 150, height: 150)
                 } placeholder: {
@@ -38,6 +38,9 @@ struct InfoCityAndTempView: View {
                 Text(viewModel.actualWeather.weather?.first?.stateSky ?? "")
                 
             }
+        }
+        .task {
+            viewModel.loadUI()
         }
 
     }
