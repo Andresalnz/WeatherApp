@@ -15,12 +15,12 @@ extension CurrentWeatherDTO {
                                 weather: weather?.map { $0.toBo() },
                                 base: base,
                                 temperatures: temperatures?.toBo(),
-                                visibility: visibility,
+                                visibility: (visibility ?? 0) / 100,
                                 wind: wind?.toBo(),
                                 clouds: clouds?.toBo(),
                                 dt: dt,
-                                sun: sun?.toBo(),
-                                timeZone: timeZone,
+                                sun: sun?.toBo(timerZone?.timeIntervalSince1970 ?? 0.0),
+                                timerZone: timerZone?.timeIntervalSince1970,
                                 id: id,
                                 name: name,
                                 cod: cod)
@@ -39,7 +39,7 @@ extension InfoWeatherDTO {
     func toBo() -> InfoWeatherBO {
         return InfoWeatherBO(id: id,
                              main: main,
-                             description: description,
+                             stateSky: stateSky,
                              icon: icon)
     }
 }
@@ -47,10 +47,10 @@ extension InfoWeatherDTO {
 extension InfoTemperatureDTO {
     func toBo() -> InfoTemperatureBO {
         return InfoTemperatureBO(id: id,
-                                 temp: temp,
-                                 feeling: feeling,
-                                 tempMin: tempMin,
-                                 tempMax: tempMax,
+                                 temp: Int(temp ?? 0),
+                                 feeling: Int(feeling ?? 0),
+                                 tempMin: Int(tempMin ?? 0),
+                                 tempMax: Int(tempMax ?? 0),
                                  pressure: pressure,
                                  humidity: humidity)
     }
@@ -59,7 +59,7 @@ extension InfoTemperatureDTO {
 extension InfoWindDTO {
     func toBo() -> InfoWindBO {
         return InfoWindBO(id: id,
-                          speed: speed,
+                          speed: Int(speed ?? 0),
                           deg: deg)
     }
 }
@@ -73,11 +73,16 @@ extension InfoCloudsDTO {
 }
 
 extension InfoSunDTO {
-    func toBo() -> InfoSunBO {
+    func toBo(_ timerZone: Double) -> InfoSunBO {
+      
+      
+        let sunriseWithTimezone = sunrise?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT()))
+        let sunsetWithTimezone = sunset?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT()))
+        
         return InfoSunBO(type: type,
                          id: id,
                          country: country,
-                         sunrise: sunrise,
-                         sunset: sunset)
+                         sunrise: sunriseWithTimezone,
+                         sunset: sunsetWithTimezone)
     }
 }
