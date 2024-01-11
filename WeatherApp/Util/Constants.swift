@@ -29,4 +29,7 @@ struct Constants {
     static let hectopascal: String = "hPA"
     static let meterSec: String = "meter/sec"
     static let km: String = "km"
+    
+    static let sunriseIcon: String = "sunrise"
+    static let sunsetIcon: String = "sunset"
 }

@@ -62,13 +62,13 @@ struct WeatherHomeView: View {
             
             HStack(spacing: 50) {
                 VStack {
-                    Image(systemName: "sunrise")
+                    Image(systemName: Constants.sunriseIcon)
                         .symbolRenderingMode(.multicolor)
                     Text(viewModel.actualWeather.sun?.sunrise ?? .distantPast, style: .time)
                 }
                 
                 VStack {
-                    Image(systemName: "sunset")
+                    Image(systemName: Constants.sunsetIcon)
                         .symbolRenderingMode(.multicolor)
                     Text(viewModel.actualWeather.sun?.sunset ?? .now, style: .time)
                 }
