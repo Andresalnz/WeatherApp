@@ -42,28 +42,20 @@ struct WeatherHomeView: View {
             }
             
             Divider()
-            Group {
-                HStack(spacing: 100) {
+            
+            HStack(spacing: 50){
+                VStack(alignment: .leading) {
                     Text("Humedad")
-                    Text("\(viewModel.actualWeather.temperatures?.humidity ?? 0) %")
-                }
-                
-                HStack(spacing: 100) {
                     Text("Presion")
-                    Text("\(viewModel.actualWeather.temperatures?.pressure ?? 0) hPA")
-                }
-                
-                HStack(spacing: 100) {
                     Text("Velocidad del viento")
-                    
-                    Text("\(viewModel.actualWeather.wind?.speed ?? 0) meter/sec")
-                }
-                
-                HStack(spacing: 100) {
                     Text("Visibilidad")
+                }
+                VStack(alignment: .trailing) {
+                    Text("\(viewModel.actualWeather.temperatures?.humidity ?? 0) %")
+                    Text("\(viewModel.actualWeather.temperatures?.pressure ?? 0) hPA")
+                    Text("\(viewModel.actualWeather.wind?.speed ?? 0) meter/sec")
                     Text("\(viewModel.actualWeather.visibility ?? 0) km")
                 }
-                
             }
             .padding(.top)
             Divider()
