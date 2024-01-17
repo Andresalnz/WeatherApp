@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import CoreLocation
 
+//MARK: - WeatherInteractor
 protocol WeatherInteractor {
-    func getWeather() async throws -> CurrentWeatherDTO
+    func getWeather(longitude: CLLocationDegrees, latitude: CLLocationDegrees) async throws -> CurrentWeatherDTO
 }
 
 struct Interactor: WeatherInteractor {
@@ -27,10 +29,9 @@ struct Interactor: WeatherInteractor {
         }
     }
     
-    func getWeather() async throws -> CurrentWeatherDTO {
-        try await getJSON(url: URL(string: "\(Constants.uri + Constants.city + "&" + Constants.apiKey + "&" + Constants.units)")!, type: CurrentWeatherDTO.self)
+    //MARK: - Get location with longitude and latitude
+    func getWeather(longitude: CLLocationDegrees, latitude: CLLocationDegrees) async throws -> CurrentWeatherDTO {
+        return try await getJSON(url: URL(string: "\(Constants.uri + Constants.latitude)\(latitude)\(Constants.longitude)\(longitude)\(Constants.apiKey + Constants.units)")!, type: CurrentWeatherDTO.self)
     }
-    
-    
 }
 

@@ -12,8 +12,10 @@ struct Constants {
     static let uri: String = "https://api.openweathermap.org/data/2.5/weather"
     static let uriImage: String = "https://openweathermap.org/img/wn/"
     static let city: String = "?q=Madrid"
-    static let apiKey: String = "appid=75132dd2912fe64cbee0ce39cda9eeac"
-    static let units: String = "units=metric"
+    static let latitude: String = "?lat="
+    static let longitude: String = "&lon="
+    static let apiKey: String = "&appid=75132dd2912fe64cbee0ce39cda9eeac"
+    static let units: String = "&units=metric"
     
     //MARK: - Texts
     static let day: String = "Day"
