@@ -17,9 +17,6 @@ struct WeatherHomeView: View {
             GeneralView(content: InfoGeneralView().environmentObject(viewModel))
             GeneralView(content: InfoSunHour().environmentObject(viewModel))
         }
-        .onAppear {
-            viewModel.loadUI()
-        }
     }
 }
 
