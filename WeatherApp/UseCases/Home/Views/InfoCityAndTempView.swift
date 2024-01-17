@@ -39,10 +39,6 @@ struct InfoCityAndTempView: View {
                 
             }
         }
-        .task {
-            viewModel.loadUI()
-        }
-
     }
 }
 
