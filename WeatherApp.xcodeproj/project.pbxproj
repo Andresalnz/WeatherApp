@@ -156,9 +156,17 @@
 		9F0C75FC2B3C5A4800DF1CB7 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				9F0C75FD2B3C5A9200DF1CB7 /* WeatherInteractor.swift */,
+				9F5A5AC32CBD7B5000803C14 /* Interactor */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		9F5A5AC32CBD7B5000803C14 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				9F0C75FD2B3C5A9200DF1CB7 /* WeatherInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		9FC5E9FB2B5040FD00A51664 /* Util */ = {
