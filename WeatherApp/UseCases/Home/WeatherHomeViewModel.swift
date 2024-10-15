@@ -13,15 +13,17 @@ final class WeatherHomeViewModel: NSObject, ObservableObject {
     
     //MARK: - Interactor
     private let interactor: Interactor
-    @Published var actualWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1)
+    
+    @Published var actualWeather: CurrentWeatherBO
     
     //MARK: - Varaibles Location
     private let locationManager: CLLocationManager = CLLocationManager()
     var location: CLLocation?
     
     //MARK: - Init
-    init(interactor: Interactor = Interactor.shared) {
+    init(interactor: Interactor = Interactor.shared, actualWeather: CurrentWeatherBO) {
         self.interactor = interactor
+        self.actualWeather = actualWeather
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -38,7 +40,7 @@ final class WeatherHomeViewModel: NSObject, ObservableObject {
     //MARK: - loadData
     func loadData(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async {
         do {
-            let weather = try await interactor.getWeather(longitude: longitude, latitude: latitude)
+            let weather = try await interactor.getWeather(url: URL(string: ""), longitude: longitude, latitude: latitude)
             await MainActor.run {
                 self.actualWeather = weather.toBo()
             }
