@@ -29,10 +29,10 @@ struct MainWeatherSectionView: View {
     private var InfoCurrentWeather: some View {
         switch type {
             case .sun:
-                InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Sol", iconName: "sun.max.fill", infoText1: "Salida del sol", infoText2: "Puesta de sol", infoCurrentWeather: infoWeather.sun?.sunrise, infoCurrentWeather2: infoWeather.sun?.sunset)
+                InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Sun", iconName: "sun.max.fill", infoText1: "Sunrise", infoText2: "Sunset", infoCurrentWeather: infoWeather.sun?.sunrise, infoCurrentWeather2: infoWeather.sun?.sunset)
                     .padding(.leading, 15)
             case .wind:
-                InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Viento", iconName: "wind", infoText1: "Velocidad", infoText2: "Rachas", infoCurrentWeather: infoWeather.wind?.speed , infoCurrentWeather2: infoWeather.wind?.gust)
+                InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Wind", iconName: "wind", infoText1: "Speed", infoText2: "Gust", infoCurrentWeather: infoWeather.wind?.speed , infoCurrentWeather2: infoWeather.wind?.gust)
                     .padding(.leading, 15)
             case .preasure:
                 InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Pressure", iconName: "gauge.with.dots.needle.bottom.50percent", infoCurrentWeather: infoWeather.weatherMain?.pressure)
