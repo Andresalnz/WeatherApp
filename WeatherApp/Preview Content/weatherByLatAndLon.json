@@ -25,7 +25,8 @@
     "visibility": 10000,
     "wind": {
         "speed": 1.03,
-        "deg": 0
+        "deg": 90,
+        "gust": 11.25
     },
     "clouds": {
         "all": 40
@@ -40,6 +41,6 @@
     },
     "timezone": 3600,
     "id": 3117735,
-    "name": "pacopepe",
+    "name": "Madrid",
     "cod": 200
 }
