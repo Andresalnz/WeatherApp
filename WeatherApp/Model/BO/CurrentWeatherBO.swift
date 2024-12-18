@@ -22,7 +22,7 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
     let id: Int?
     var name: String?
     var cod: Int?
-    var sectionView: CurrentWeatherVO
+   
     
    
     
@@ -41,7 +41,6 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
         case id
         case name
         case cod
-        case sectionView
     }
     
    
@@ -136,5 +135,5 @@ extension CurrentWeatherBO {
                                           clouds: InfoCloudsBO(id: 1, percentageClouds: 68),
                                           dt: Date(),
                                           sun: InfoSunBO(type: 2, id: 2004688, country: "IT", sunrise: "08:21", sunset: "18:21"),
-                                          timerZone: 7200, id: 3163858, name: "Madrid", cod: 200, sectionView: CurrentWeatherVO())
+                                          timerZone: 7200, id: 3163858, name: "Madrid", cod: 200)
 }

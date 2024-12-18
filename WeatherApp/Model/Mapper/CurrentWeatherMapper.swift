@@ -24,7 +24,7 @@ extension CurrentWeatherDTO {
                                 timerZone: timerZone?.timeIntervalSince1970,
                                 id: id,
                                 name: name,
-                                cod: cod, sectionView: CurrentWeatherVO())
+                                cod: cod)
     }
 }
 
