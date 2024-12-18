@@ -14,6 +14,7 @@ struct CurrentWeatherDTO: Codable, Identifiable, Hashable {
     var weatherMain: InfoweatherMainDTO?
     var visibility: Int?
     var wind: InfoWindDTO?
+    var rain: InfoRainDTO?
     var clouds: InfoCloudsDTO?
     var dt: Date?
     var sun: InfoSunDTO?
@@ -29,6 +30,7 @@ struct CurrentWeatherDTO: Codable, Identifiable, Hashable {
         case weatherMain = "main"
         case visibility
         case wind
+        case rain
         case clouds
         case dt
         case sun = "sys"
@@ -85,6 +87,16 @@ struct InfoWindDTO: Codable, Identifiable, Hashable {
     var speed: Double?
     var deg: Double?
     var gust: Double?
+}
+
+struct InfoRainDTO: Codable, Identifiable, Hashable {
+    let id: Int?
+    var rain: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case rain = "1h"
+    }
 }
 
 struct InfoCloudsDTO: Codable, Identifiable, Hashable {

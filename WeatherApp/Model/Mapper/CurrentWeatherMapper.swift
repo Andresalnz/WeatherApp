@@ -15,15 +15,16 @@ extension CurrentWeatherDTO {
                                 weather: weather?.map { $0.toBo() },
                                 base: base,
                                 weatherMain: weatherMain?.toBo(),
-                                visibility: (visibility ?? 0) / 100,
+                                visibility: String((visibility ?? 0) / 1000) + " km",
                                 wind: wind?.toBo(),
+                                rain: rain?.toBo(),
                                 clouds: clouds?.toBo(),
                                 dt: dt,
                                 sun: sun?.toBo(timerZone?.timeIntervalSince1970 ?? 0.0),
                                 timerZone: timerZone?.timeIntervalSince1970,
                                 id: id,
                                 name: name,
-                                cod: cod)
+                                cod: cod, sectionView: CurrentWeatherVO())
     }
 }
 
@@ -53,20 +54,27 @@ extension InfoweatherMainDTO {
                                  feeling: ((feeling ?? 0) - 273.15).rounded(.up),
                                  tempMin: ((tempMin ?? 0) - 273.15).rounded(.up),
                                  tempMax: ((tempMax ?? 0) - 273.15).rounded(.up),
-                                 pressure: pressure,
-                                 humidity: humidity)
+                                 pressure: String(pressure  ?? 0) + " hPa",
+                                 humidity: String(humidity ?? 0) + " %"
+        )
     }
 }
 
 extension InfoWindDTO {
     func toBo() -> InfoWindBO {
         return InfoWindBO(id: id,
-                          speed: (speed ?? 0).rounded(.up),
-                          deg: deg,
-                          gust: gust)
+                          speed: String(format: "%.0f km/h", ((speed ?? 0) * 3.6).rounded(.up)),
+                          deg: String(deg?.directionWind() ?? "Norte"),
+                          gust: String(format: "%.0f km/h", ((gust ?? 0) * 3.6).rounded(.up)))
     }
 }
 
+extension InfoRainDTO {
+    func toBo() -> InfoRainBO {
+        return InfoRainBO(id: id,
+                          rain: String(rain ?? 0) + " mm")
+    }
+}
 
 extension InfoCloudsDTO {
     func toBo() -> InfoCloudsBO {
@@ -78,14 +86,45 @@ extension InfoCloudsDTO {
 extension InfoSunDTO {
     func toBo(_ timerZone: Double) -> InfoSunBO {
       
-      
-        let sunriseWithTimezone = sunrise?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT()))
-        let sunsetWithTimezone = sunset?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT()))
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "HH:mm"
+        formatter1.locale = Locale(identifier: "es")
+        
+        let sunriseWithTimezone = sunrise?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT())) ?? .now
+        let sunsetWithTimezone = sunset?.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT())) ?? .now
         
         return InfoSunBO(type: type,
                          id: id,
                          country: country,
-                         sunrise: sunriseWithTimezone,
-                         sunset: sunsetWithTimezone)
+                         sunrise: formatter1.string(from: sunriseWithTimezone),
+                         sunset: formatter1.string(from: sunsetWithTimezone))
+    }
+}
+
+
+extension Double {
+    func directionWind() -> String {
+        switch self {
+            case 0...11.25:
+                return "Norte"
+            case 11.25...56.25:
+                return "Noreste"
+            case 56.25...101.25:
+                return "Este"
+            case 101.25...146.25:
+                return "Sureste"
+            case 146.25...191.25:
+                return "Sur"
+            case 191.25...236.25:
+                return "Suroeste"
+            case 236.25...281.25:
+                return "Oeste"
+            case 281.25...326.25:
+                return "Noroeste"
+            case 326.25...360:
+                return "Norte"
+            default:
+                return "Norte"
+        }
     }
 }
