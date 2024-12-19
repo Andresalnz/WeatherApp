@@ -8,11 +8,11 @@
 import Foundation
 
 extension Interactor {
-    func getCurrentWeather() async throws -> CurrentWeatherDTO {
+    func getCurrentWeather(latitude: Double, longitude: Double) async throws -> CurrentWeatherDTO {
         var components = URLComponents(string: baseUrl.absoluteString)!
         components.queryItems = [
-            URLQueryItem(name: "lat", value: "40.41"),
-            URLQueryItem(name: "lon", value: "-3.70"),
+            URLQueryItem(name: "lat", value: "\(latitude)"),
+            URLQueryItem(name: "lon", value: "\(longitude)"),
             URLQueryItem(name: "appid", value: "45cdb8986f5dc87e1b08bb64678efc0e")
         ]
         let url = components.url!
