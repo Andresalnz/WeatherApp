@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MainWeatherView: View {
     
@@ -15,23 +16,33 @@ struct MainWeatherView: View {
     
     var body: some View {
         ScrollView {
-        MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
-            LazyVGrid(columns: rows, spacing: 0) {
+            if vm.isLoading {
+                MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
+                LazyVGrid(columns: rows, spacing: 0) {
                     MainWeatherSectionView(type: .sun, infoWeather: vm.currentWeather)
                     MainWeatherSectionView(type: .visibility, infoWeather: vm.currentWeather)
                     MainWeatherSectionView(type: .preasure, infoWeather: vm.currentWeather)
                     MainWeatherSectionView(type: .humidity, infoWeather: vm.currentWeather)
                     MainWeatherSectionView(type: .wind, infoWeather: vm.currentWeather)
                     MainWeatherSectionView(type: .rain, infoWeather: vm.currentWeather)
+                }
+                .task {
+                    await vm.loadData()
+                }
+            } else {
+                VStack {
+                    Text("Loading...")
+                        .font(.title)
+                        .foregroundStyle(Color.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .bottom)
+                .padding(.top, 300)
             }
         }
         .background(Image("imageWeather"))
-        .task {
-            await vm.loadData()
-        }
     }
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository())))
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: false))
 }
