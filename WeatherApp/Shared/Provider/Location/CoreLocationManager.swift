@@ -34,7 +34,7 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
         if let location = locations.last {
             let coord = location.coordinate
             weatherCoordinate.send(coord)
-            weatherCoordinate.send(completion: .finished)
+            locationManager.stopUpdatingLocation()
         }
     }
     
