@@ -47,9 +47,11 @@ struct MainWeatherSectionView: View {
                 if let rain = infoWeather.rain {
                     InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: rain.rain)
                         .padding(.trailing, 15)
+                } else {
+                    InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: "0 mm")
+                        .padding(.trailing, 15)
                 }
-                InfoCurrentWeatherView(infoWeather: infoWeather, textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: "0 mm")
-                    .padding(.trailing, 15)
+               
         }
     }
 }
