@@ -13,7 +13,7 @@ struct MainWeatherTemperatureView: View {
     
     var body: some View {
         VStack {
-            Text(infoTemperature.name ?? "Madrid")
+            Text(infoTemperature.name ?? "")
                 .font(.title3)
                 .padding(.top)
             Text("\(infoTemperature.weatherMain?.temp ?? 20.0, specifier: "%.0fº")")
@@ -23,8 +23,8 @@ struct MainWeatherTemperatureView: View {
                     .font(.title3)
             }
             HStack {
-                Text("Maxima. \(infoTemperature.weatherMain?.tempMax ?? 20.0, specifier: "%.0fº")")
-                Text("Minima. \(infoTemperature.weatherMain?.tempMin ?? 20.0, specifier: "%.0fº") ")
+                Text("Maxima. \(infoTemperature.weatherMain?.tempMax ?? 0.0, specifier: "%.0fº")")
+                Text("Minima. \(infoTemperature.weatherMain?.tempMin ?? 0.0, specifier: "%.0fº") ")
             }
             .font(.headline)
         }
