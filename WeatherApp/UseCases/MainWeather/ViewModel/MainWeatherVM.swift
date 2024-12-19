@@ -6,29 +6,55 @@
 //
 
 import Foundation
-
+import Combine
+import CoreLocation
 class MainWeatherVM: ObservableObject {
     
     @Published var currentWeather: CurrentWeatherBO
+    @Published var isLoading: Bool
+    @Published var coordinate: CLLocationCoordinate2D?
     
     //MARK: - Interactor
     private let interactor: Interactor
-    
-    init(currentWeather: CurrentWeatherBO = .preview, interactor: Interactor = Weather(repository: Repository())) {
+    let locationManager: CoreLocationManager
+    private var cancellables = Set<AnyCancellable>()
+
+    init(currentWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1), interactor: Interactor = Weather(repository: Repository()), locationManager: CoreLocationManager, isLoading: Bool = false)  {
         self.currentWeather = currentWeather
         self.interactor = interactor
+        self.locationManager = locationManager
+        self.isLoading = isLoading
+        subscriberCoordinate()
     }
     
-    
+    func subscriberCoordinate()  {
+        locationManager.weatherCoordinate
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Final")
+                    case .failure(_):
+                        print("Error completion")
+                }
+            } receiveValue: { [weak self] coord in
+                if let coord {
+                    self?.isLoading = true
+                    self?.coordinate = coord
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     func loadData() async {
         do {
-           let actualWeather = try await interactor.getCurrentWeather()
-            await MainActor.run {
-                self.currentWeather = actualWeather.toBo()
+            if let longitude = self.coordinate?.longitude, let latitude = self.coordinate?.latitude {
+                let actualWeather = try await interactor.getCurrentWeather(latitude: latitude, longitude: longitude)
+                await MainActor.run {
+                    self.currentWeather = actualWeather.toBo()
+                }
             }
         } catch let err {
             print("Error\(err)")
         }
     }
-    
 }
