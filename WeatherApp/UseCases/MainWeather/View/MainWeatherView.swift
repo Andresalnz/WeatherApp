@@ -40,9 +40,10 @@ struct MainWeatherView: View {
             }
         }
         .background(Image("imageWeather"))
+        
     }
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: false))
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: true))
 }
