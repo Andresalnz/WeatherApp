@@ -16,7 +16,7 @@ struct Repository: DataRepository {
         guard let url = url else { throw fatalError() }
         let (data, _) = try await URLSession.shared.data(from: url)
         let weatherModel = try JSONDecoder().decode(type, from: data)
-        print(weatherModel)
+        
         return weatherModel
     }
 }
