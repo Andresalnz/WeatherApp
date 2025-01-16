@@ -11,7 +11,7 @@ extension Interactor {
     func getFinderCities(from searechText: String) async throws -> [GeoCodingElementDTO] {
         var components = URLComponents(string: baseUrlGeo.absoluteString)
         components?.queryItems = [
-            URLQueryItem(name: "q", value: "Londres"),
+            URLQueryItem(name: "q", value: searechText),
             URLQueryItem(name: "limit", value: "5"),
             URLQueryItem(name: "appid", value: "45cdb8986f5dc87e1b08bb64678efc0e")
         ]

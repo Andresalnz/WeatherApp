@@ -13,7 +13,7 @@ import Foundation
 //}
 
 struct GeoCodingElementBO: Codable, Identifiable, Hashable {
-    let id: Int?
+    var id = UUID()
     let name: String?
     let lat: Double?
     let lon: Double?

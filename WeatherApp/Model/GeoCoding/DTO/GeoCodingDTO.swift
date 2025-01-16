@@ -19,7 +19,7 @@ struct GeoCodingElementDTO: Codable, Identifiable, Hashable {
     let lon: Double?
     let country: String?
     let state: String?
-    let id: Int?
+    let id = UUID()
     
     enum CodingKeys: String, CodingKey {
         case id
