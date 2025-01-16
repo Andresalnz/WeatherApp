@@ -13,8 +13,11 @@ struct FinderCityView: View {
     
     var body: some View {
         NavigationStack {
-            Text(vm.cities.first?.name ?? "")
-          
+            List {
+                SearchCityView(cities: vm.cities)
+            }
+            
+           
         }
         .task {
             await  vm.loadDataCities()
