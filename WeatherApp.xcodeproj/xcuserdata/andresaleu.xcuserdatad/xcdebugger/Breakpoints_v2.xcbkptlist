@@ -3,4 +3,80 @@
    uuid = "10311244-3FE3-479E-9224-88F224ABE131"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B948E6AB-7AD8-4580-8F9F-40C267471180"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherApp/UseCases/FinderCity/Interactor/FinderCityInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getSearchCity(nameCity:nameState:nameCountry:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B948E6AB-7AD8-4580-8F9F-40C267471180 - 23ef69b4b0742fbf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for WeatherApp.Interactor.getSearchCity(nameCity: Swift.String, nameState: Swift.String, nameCountry: Swift.String) async throws -&gt; WeatherApp.CurrentWeatherDTO"
+                  moduleName = "WeatherApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andresaleu/workSpace/iOS/SwiftUI/WeatherApp/WeatherApp/UseCases/FinderCity/Interactor/FinderCityInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+               <Location
+                  uuid = "B948E6AB-7AD8-4580-8F9F-40C267471180 - 7104897ae2a7726"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for WeatherApp.Interactor.getSearchCity(nameCity: Swift.String, nameState: Swift.String, nameCountry: Swift.String) async throws -&gt; WeatherApp.CurrentWeatherDTO"
+                  moduleName = "WeatherApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andresaleu/workSpace/iOS/SwiftUI/WeatherApp/WeatherApp/UseCases/FinderCity/Interactor/FinderCityInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+               <Location
+                  uuid = "B948E6AB-7AD8-4580-8F9F-40C267471180 - f0c82bd3b319a3e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for WeatherApp.Interactor.getSearchCity(nameCity: Swift.String, nameState: Swift.String, nameCountry: Swift.String) async throws -&gt; WeatherApp.CurrentWeatherDTO"
+                  moduleName = "WeatherApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andresaleu/workSpace/iOS/SwiftUI/WeatherApp/WeatherApp/UseCases/FinderCity/Interactor/FinderCityInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+               <Location
+                  uuid = "B948E6AB-7AD8-4580-8F9F-40C267471180 - 5f258a3e3d50e5f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for WeatherApp.Interactor.getSearchCity(nameCity: Swift.String, nameState: Swift.String, nameCountry: Swift.String) async throws -&gt; WeatherApp.CurrentWeatherDTO"
+                  moduleName = "WeatherApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andresaleu/workSpace/iOS/SwiftUI/WeatherApp/WeatherApp/UseCases/FinderCity/Interactor/FinderCityInteractor.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
