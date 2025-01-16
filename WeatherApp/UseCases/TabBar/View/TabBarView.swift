@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TabBarView: View {
+    
+    @State private var selectedTab = 1
+    
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -19,7 +22,7 @@ struct TabBarView: View {
     }
     
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
             
                 .tabItem {
@@ -28,16 +31,19 @@ struct TabBarView: View {
                    
                 }
                 .tint(.black)
+                .tag(0)
             MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
                 .tabItem {
                     Image(systemName: "house.fill")
                     
                 }
-            MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
+                .tag(1)
+            FinderCityView(vm: FinderCityVM(searchText: ""))
                 .tabItem {
                     Image(systemName: "list.bullet")
                     
                 }
+                .tag(2)
             
         }
         .accentColor(.black)
