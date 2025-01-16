@@ -9,8 +9,9 @@ import Foundation
 
 extension Interactor {
     func getCurrentWeather(latitude: Double, longitude: Double) async throws -> CurrentWeatherDTO {
-        var components = URLComponents(string: baseUrl.absoluteString)!
+        var components = URLComponents(string: baseUrlData.absoluteString)!
         components.queryItems = [
+         //   URLQueryItem(name: "/data/2.5/weather", value: nil),
             URLQueryItem(name: "lat", value: "\(latitude)"),
             URLQueryItem(name: "lon", value: "\(longitude)"),
             URLQueryItem(name: "appid", value: "45cdb8986f5dc87e1b08bb64678efc0e")
@@ -22,7 +23,7 @@ extension Interactor {
 
 extension Interactor  {
     func getCurrentWeatherTest() async throws -> CurrentWeatherDTO {
-        return try await repository.getJSON(url: baseUrl, type: CurrentWeatherDTO.self)
+        return try await repository.getJSON(url: baseUrlData, type: CurrentWeatherDTO.self)
     }
 }
 
