@@ -10,15 +10,48 @@ import SwiftUI
 struct CurrentSearchCityView: View {
     
     var infoWeather: CurrentWeatherBO
-    var nameCity: String
+    
+    let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        Text(infoWeather.name ?? "nu")
-        Text(infoWeather.sun?.country ?? "nu")
-        
+        NavigationView {
+            VStack {
+                MainWeatherTemperatureView(infoTemperature: infoWeather)
+                ScrollView {
+                    LazyVGrid(columns: rows, spacing: 0) {
+                        MainWeatherSectionView(type: .sun, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .visibility, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .preasure, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .humidity, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .wind, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .rain, infoWeather: infoWeather)
+                    }
+                }
+            }
+            .background(Image("imageWeather"))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Añadir") {
+                        dismiss()
+                    }
+                    .tint(.black)
+                    .bold()
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancelar") {
+                        
+                    }
+                    .tint(.black)
+                }
+                
+            }
+            
+        }
     }
 }
 
 #Preview {
-    CurrentSearchCityView(infoWeather: .preview, nameCity: "Londres")
+    CurrentSearchCityView(infoWeather: .preview, nameCity: "Londres", nameState: "England", nameCountry: "United Kingdom")
 }
