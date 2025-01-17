@@ -53,5 +53,5 @@ struct CurrentSearchCityView: View {
 }
 
 #Preview {
-    CurrentSearchCityView(infoWeather: .preview, nameCity: "Londres", nameState: "England", nameCountry: "United Kingdom")
+    CurrentSearchCityView(infoWeather: .preview)
 }

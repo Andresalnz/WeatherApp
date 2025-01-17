@@ -19,13 +19,14 @@ struct FinderCityView: View {
             }
             
            
+            .preferredColorScheme(.dark)
         }
         .task {
             await  vm.loadDataCities()
         }
         .searchable(text: $vm.searchText)
         .sheet(isPresented: $showSheet) {
-            CurrentSearchCityView(infoWeather: vm.searchCityWeather, nameCity: vm.cityItem ?? "")
+            CurrentSearchCityView(infoWeather: vm.searchCityWeather)
         }
     }
 }
