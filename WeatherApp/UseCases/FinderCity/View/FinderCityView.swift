@@ -15,7 +15,7 @@ struct FinderCityView: View {
     var body: some View {
         NavigationStack {
             List {
-                SearchCityView(cities: vm.cities, showSheet: $showSheet, cityNameItem: $vm.cityItem, cityStateItem: $vm.state, cityCountryItem: $vm.country, vm: vm)
+                SearchCityView(cities: vm.cities, showSheet: $showSheet, cityNameItem: $vm.cityItem, cityStateItem: $vm.state, cityCountryItem: $vm.country)
             }
             
            

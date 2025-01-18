@@ -15,27 +15,20 @@ struct SearchCityView: View {
     @Binding var cityStateItem: String?
     @Binding var cityCountryItem: String?
     
-    @ObservedObject var vm: FinderCityVM
+   
     
     var body: some View {
         ForEach(cities, id: \.id) { city in
             if let name = city.name {
                 HStack {
-                    Button(name) {
+                    Button("\(name) - \(city.state ?? "") - \(city.country ?? "")") {
                         showSheet.toggle()
                         cityNameItem = name
                         cityStateItem = city.state ?? ""
                         cityCountryItem = city.country ?? ""
                     }
-                    
-                    if let state = city.state {
-                        Text(" - \(state)")
-                    }
-                    if let country = city.country {
-                        Text(" - \(country)")
-                    }
                 }
-               
+                .tint(.white)
             }
             
         }
@@ -44,5 +37,5 @@ struct SearchCityView: View {
 }
 
 #Preview {
-    SearchCityView(cities: [], showSheet: .constant(false), cityNameItem: .constant(""), cityStateItem: .constant(""), cityCountryItem: .constant(""), vm: FinderCityVM(searchText: ""))
+    SearchCityView(cities: [], showSheet: .constant(false), cityNameItem: .constant(""), cityStateItem: .constant(""), cityCountryItem: .constant(""))
 }
