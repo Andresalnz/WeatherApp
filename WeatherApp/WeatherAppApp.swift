@@ -11,7 +11,10 @@ import SwiftUI
 struct WeatherAppApp: App {
     var body: some Scene {
         WindowGroup {
-            MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
+            //MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
+            TabBarView()
+                
+               
         }
     }
 }
