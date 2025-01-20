@@ -30,7 +30,13 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
-            .background(Image("imageWeather"))
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue, Color.white]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Añadir") {

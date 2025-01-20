@@ -39,7 +39,13 @@ struct MainWeatherView: View {
                 .padding(.top, 300)
             }
         }
-        .background(Image("imageWeather"))
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.white, Color.blue]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
         
     }
 }
