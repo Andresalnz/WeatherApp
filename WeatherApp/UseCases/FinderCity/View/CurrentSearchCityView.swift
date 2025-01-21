@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrentSearchCityView: View {
     
     var infoWeather: CurrentWeatherBO
+    var saveCity: () async -> Void
     
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
@@ -40,6 +41,9 @@ struct CurrentSearchCityView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Añadir") {
+                        Task {
+                            await saveCity()
+                        }
                         dismiss()
                     }
                     .tint(.black)
@@ -47,7 +51,7 @@ struct CurrentSearchCityView: View {
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancelar") {
-                        
+                        dismiss()
                     }
                     .tint(.black)
                 }
@@ -59,5 +63,5 @@ struct CurrentSearchCityView: View {
 }
 
 #Preview {
-    CurrentSearchCityView(infoWeather: .preview)
+    CurrentSearchCityView(infoWeather: .preview, saveCity: {print("hola")})
 }

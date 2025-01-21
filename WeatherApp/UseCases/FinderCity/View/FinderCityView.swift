@@ -26,11 +26,11 @@ struct FinderCityView: View {
         }
         .searchable(text: $vm.searchText)
         .sheet(isPresented: $showSheet) {
-            CurrentSearchCityView(infoWeather: vm.searchCityWeather)
+            CurrentSearchCityView(infoWeather: vm.searchCityWeather, saveCity: { await vm.saveCity() })  
         }
     }
 }
 
 #Preview {
-    FinderCityView(vm: FinderCityVM(interactor: Weather(repository: Repository()), searchText: "Londres"))
+    FinderCityView(vm: FinderCityVM(interactor: Weather(repository: Repository()), database: CityDatabase(), searchText: "Londres"))
 }
