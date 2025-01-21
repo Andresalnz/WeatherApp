@@ -23,7 +23,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
+            SavedCitiesView()
             
                 .tabItem {
                     Image(systemName: "bookmark.fill")
@@ -38,7 +38,7 @@ struct TabBarView: View {
                     
                 }
                 .tag(1)
-            FinderCityView(vm: FinderCityVM(searchText: ""))
+            FinderCityView(vm: FinderCityVM(database: CityDatabase(), searchText: ""))
                 .tabItem {
                     Image(systemName: "list.bullet")
                     
