@@ -12,6 +12,7 @@ struct WeatherAppApp: App {
     var body: some Scene {
         WindowGroup {
             TabBarView()
+                .modelContainer(CityDatabase().container)
         }
     }
 }
