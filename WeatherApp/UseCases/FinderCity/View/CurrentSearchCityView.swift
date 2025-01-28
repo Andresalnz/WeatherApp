@@ -31,13 +31,7 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.blue, Color.white]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+            .preferredColorScheme(.dark)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Añadir") {
