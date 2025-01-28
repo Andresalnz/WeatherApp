@@ -23,7 +23,7 @@ class FinderCityVM: ObservableObject {
     @Published var cities: [GeoCodingElementBO]
     @Published var searchCityWeather: CurrentWeatherBO
     
-    init(interactor: Interactor = Weather(repository: Repository()), database: CityDatabase, searchText: String, cities: [GeoCodingElementBO] = [], searchCityWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1)) {
+    init(interactor: Interactor = Weather(repository: Repository()), database: CityDatabaseProtocol, searchText: String = "", cities: [GeoCodingElementBO] = [], searchCityWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1)) {
         self.interactor = interactor
         self.database = database
         self.searchText = searchText
@@ -67,7 +67,7 @@ class FinderCityVM: ObservableObject {
                 Task {
                     if let i = i {
                         wSelf.form = [i, wSelf.state, wSelf.country].compactMap({$0}).joined(separator: ", ")
-                        let actualSearchCityWeather = try await wSelf.interactor.getSearchCity(nameCity: wSelf.form, nameState: wSelf.state ?? "", nameCountry: wSelf.country ?? "")
+                        let actualSearchCityWeather = try await wSelf.interactor.getSearchCity(nameCity: wSelf.form)
                         await MainActor.run {
                             wSelf.searchCityWeather = actualSearchCityWeather.toBo()
                         }
@@ -79,13 +79,8 @@ class FinderCityVM: ObservableObject {
     }
     
     func saveCity() async {
-        let city: CityDataModel = CityDataModel(id: searchCityWeather.id ?? 0, nameCity: searchCityWeather.name ?? "", currentTemperature: searchCityWeather.weatherMain?.temp ?? 0.0, stateSky: searchCityWeather.weather?.first?.main ?? "", temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0, sunrise: searchCityWeather.sun?.sunrise ?? "", sunset: searchCityWeather.sun?.sunset ?? "", visibility: searchCityWeather.visibility ?? "", preassure: searchCityWeather.weatherMain?.pressure ?? "", humidity: searchCityWeather.weatherMain?.humidity ?? "", windSpeed: searchCityWeather.wind?.speed ?? "", windGust: searchCityWeather.wind?.gust ?? "", rain: searchCityWeather.rain?.rain ?? "")
+        let city: CityDataModel = CityDataModel(nameCity: searchCityWeather.name ?? "", stateCity: state, countryCity: country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
         
         await database.saveCity(city)
     }
-    
-    func fetcAllCitiesSaved() async {
-      await database.getAllCities()
-    }
-    
 }
