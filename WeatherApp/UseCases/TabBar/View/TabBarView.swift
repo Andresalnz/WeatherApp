@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    
+    @Environment(\.modelContext) private var context
     @State private var selectedTab = 1
     
     init() {
@@ -23,7 +23,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            SavedCitiesView()
+            SavedCitiesView(vm: SavedCitiesVM(database: CityDatabase(context: context)))
             
                 .tabItem {
                     Image(systemName: "bookmark.fill")
@@ -38,7 +38,7 @@ struct TabBarView: View {
                     
                 }
                 .tag(1)
-            FinderCityView(vm: FinderCityVM(database: CityDatabase(), searchText: ""))
+            FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context)))
                 .tabItem {
                     Image(systemName: "list.bullet")
                     

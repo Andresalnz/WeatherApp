@@ -11,23 +11,41 @@ import SwiftData
 struct SavedCitiesView: View {
     
     @Query(sort: [SortDescriptor(\CityDataModel.nameCity)]) var cities: [CityDataModel]
+    @StateObject var vm: SavedCitiesVM
+    @Environment(\.modelContext) private var context
     
     var body: some View {
-        if cities.count == 0 {
-            Text("Es cero")
-        } else {
+        NavigationStack {
             List {
-                ForEach(cities, id: \.id) { city in
-                    Text(city.nameCity)
+                ForEach(cities, id:\.id) { city in
+                    NavigationLink(value: city) {
+                        SavedCitiesCellView(city: city)
+                            .swipeActions {
+                                Button {
+                                    Task {
+                                        await vm.deleteCity(at: city)
+                                    }
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                            }
+                            .listRowSeparator(.hidden)
+                            .padding(.vertical)
+                    }
+                    
                 }
+                .navigationTitle("Saved Cities")
             }
+            .navigationDestination(for: CityDataModel.self) { city in
+                CurrentweatherCitySavedView(city: city, vm: vm)
+            }
+            .listStyle(.plain)
+            .preferredColorScheme(.dark)
         }
-        
-        
-        
     }
 }
 
 #Preview {
-    SavedCitiesView()
+    @Previewable @Environment(\.modelContext)  var context
+    SavedCitiesView(vm: SavedCitiesVM (database: CityDatabase(context: context)))
 }
