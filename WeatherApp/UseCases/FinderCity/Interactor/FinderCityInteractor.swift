@@ -20,7 +20,7 @@ extension Interactor {
         return try await repository.getJSON(url: url, type: [GeoCodingElementDTO].self)
     }
     
-    func getSearchCity(nameCity: String, nameState: String, nameCountry: String) async throws -> CurrentWeatherDTO {
+    func getSearchCity(nameCity: String) async throws -> CurrentWeatherDTO {
         var components = URLComponents(string: baseUrlData.absoluteString)
         components?.queryItems = [
             URLQueryItem(name: "q", value: nameCity),
