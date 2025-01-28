@@ -79,7 +79,7 @@ class FinderCityVM: ObservableObject {
     }
     
     func saveCity() async {
-        let city: CityDataModel = CityDataModel(nameCity: searchCityWeather.name ?? "", stateCity: state, countryCity: country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
+        let city: CityDataModel = CityDataModel(customId: 0, nameCity: searchCityWeather.name ?? "", stateCity: state, countryCity: country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
         
         await database.saveCity(city)
     }

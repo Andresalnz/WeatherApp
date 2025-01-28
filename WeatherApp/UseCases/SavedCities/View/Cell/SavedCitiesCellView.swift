@@ -44,6 +44,6 @@ struct SavedCitiesCellView: View {
 }
 
 #Preview {
-    SavedCitiesCellView(city: CityDataModel( nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"))
+    SavedCitiesCellView(city: CityDataModel(customId: 0, nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"))
         .preferredColorScheme(.dark)
 }
