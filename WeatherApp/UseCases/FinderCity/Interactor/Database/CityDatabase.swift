@@ -9,49 +9,35 @@ import Foundation
 import SwiftData
 
 protocol CityDatabaseProtocol {
-    func getAllCities() async -> [CityDataModel]
     func saveCity(_ city: CityDataModel) async
+    func deleteCity(_ city: CityDataModel?) async
+    var context: ModelContext? { get }
 }
 
-class CityDatabase: CityDatabaseProtocol {
-    static let shared = CityDatabase()
+struct CityDatabase: CityDatabaseProtocol {
     
-    let container: ModelContainer
-    
-    init(inMemory: Bool = false) {
-        do {
-            container = try ModelContainer(for: CityDataModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
-            
-        } catch let err {
-            print("Error container | \(err)")
-            fatalError()
-        }
-    }
-    
-    @MainActor
-    var context: ModelContext {
-        return container.mainContext
-    }
-    
-    @MainActor
-    func getAllCities() -> [CityDataModel] {
-        do {
-            let request = FetchDescriptor<CityDataModel>(sortBy: [SortDescriptor(\CityDataModel.nameCity)])
-            return try context.fetch(request)
-        } catch let err {
-            print("Error en fetch \(err)")
-        }
-        return []
-    }
+    let context: ModelContext?
     
     @MainActor
     func saveCity(_ city: CityDataModel) {
-        context.insert(city)
+        context?.insert(city)
         do {
-            try context.save()
+            try context?.save()
         } catch let err {
-            print("error insertando \(err.localizedDescription)")
+            print(err.localizedDescription)
             
+        }
+    }
+    
+    @MainActor
+    func deleteCity(_ city: CityDataModel?) {
+        if let city = city, let model = city.modelContext {
+            context?.delete(city)
+        }
+        do {
+            try context?.save()
+        } catch let err {
+            print("error al borrar \(err.localizedDescription)")
         }
     }
 }
