@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InfoCurrentWeatherView: View {
     
-    var infoWeather: CurrentWeatherBO
+    
     
     let textLabel: String
     let iconName: String
@@ -22,8 +22,7 @@ struct InfoCurrentWeatherView: View {
     let infoCurrentWeather2: String?
     let infoCurrentWeather3: String?
     
-    init(infoWeather: CurrentWeatherBO, textLabel: String, iconName: String, infoText1: String? = nil, infoText2: String? = nil, infoText3: String? = nil, infoCurrentWeather: String?, infoCurrentWeather2: String? = nil, infoCurrentWeather3: String? = nil) {
-        self.infoWeather = infoWeather
+    init(textLabel: String, iconName: String, infoText1: String? = nil, infoText2: String? = nil, infoText3: String? = nil, infoCurrentWeather: String?, infoCurrentWeather2: String? = nil, infoCurrentWeather3: String? = nil) {
         self.textLabel = textLabel
         self.iconName = iconName
         self.infoText1 = infoText1
@@ -71,16 +70,21 @@ struct InfoCurrentWeatherView: View {
         
         .padding(10)
         .frame(maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(.black.opacity(0.4))
-            
-        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.secondary, lineWidth: 3)
+                .padding(.horizontal, 5)
+        }
+//        .background(
+//            RoundedRectangle(cornerRadius: 15)
+//                .fill(.secondary)
+//            
+//        )
         .padding(.vertical, 7)
     }
 }
 
 #Preview {
-    InfoCurrentWeatherView(infoWeather: .preview, textLabel: "Sol", iconName: "sun.max.fill", infoText1: "Peusta de sol", infoText2: "Salida del sol", infoText3: "", infoCurrentWeather: "", infoCurrentWeather2: "", infoCurrentWeather3: "")
+    InfoCurrentWeatherView(textLabel: "Sol", iconName: "sun.max.fill", infoText1: "Peusta de sol", infoText2: "Salida del sol", infoText3: "", infoCurrentWeather: "", infoCurrentWeather2: "", infoCurrentWeather3: "")
 }
  
