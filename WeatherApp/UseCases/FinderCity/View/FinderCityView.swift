@@ -32,5 +32,7 @@ struct FinderCityView: View {
 }
 
 #Preview {
-    FinderCityView(vm: FinderCityVM(interactor: Weather(repository: Repository()), database: CityDatabase(), searchText: "Londres"))
+    @Previewable @Environment(\.modelContext)  var context
+    FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context), searchText: "Madrid"))
+        
 }
