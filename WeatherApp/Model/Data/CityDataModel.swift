@@ -11,35 +11,25 @@ import SwiftData
 
 @Model
 class CityDataModel: Identifiable, Hashable {
-    @Attribute(.unique) var id: Int
-    var nameCity: String
-    var currentTemperature: Double
-    var stateSky: String
-    var temperatureMax: Double
-    var temperatureMin: Double
-    var sunrise: String
-    var sunset: String
-    var visibility: String
-    var preassure: String
-    var humidity: String
-    var windSpeed: String
-    var windGust: String
-    var rain: String
-    
-    init(id: Int, nameCity: String, currentTemperature: Double, stateSky: String, temperatureMax: Double, temperatureMin: Double, sunrise: String, sunset: String, visibility: String, preassure: String, humidity: String, windSpeed: String, windGust: String, rain: String) {
-        self.id = id
+    @Attribute(.unique) var customId: Int
+    var nameCity: String?
+    var stateCity: String?
+    var countryCity: String?
+    var temperature: Double?
+    var temperatureMax: Double?
+    var temperatureMin: Double?
+    var stateSky: String?
+    var dt: String?
+
+    init(customId: Int, nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil) {
+        self.customId = customId
         self.nameCity = nameCity
-        self.currentTemperature = currentTemperature
-        self.stateSky = stateSky
+        self.stateCity = stateCity
+        self.countryCity = countryCity
+        self.temperature = temperature
         self.temperatureMax = temperatureMax
         self.temperatureMin = temperatureMin
-        self.sunrise = sunrise
-        self.sunset = sunset
-        self.visibility = visibility
-        self.preassure = preassure
-        self.humidity = humidity
-        self.windSpeed = windSpeed
-        self.windGust = windGust
-        self.rain = rain
+        self.stateSky = stateSky
+        self.dt = dt
     }
 }
