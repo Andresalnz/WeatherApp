@@ -16,7 +16,7 @@ struct CurrentWeatherBO: Codable, Identifiable, Hashable {
     var wind: InfoWindBO?
     var rain: InfoRainBO?
     var clouds: InfoCloudsBO?
-    var dt: Date?
+    var dt: String?
     var sun: InfoSunBO?
     var timerZone: Double?
     let id: Int?
@@ -133,7 +133,7 @@ extension CurrentWeatherBO {
                                           wind: InfoWindBO(id: 1, speed: "2", deg: "45"),
                                           rain: InfoRainBO(id: 1, rain: "0.40"),
                                           clouds: InfoCloudsBO(id: 1, percentageClouds: 68),
-                                          dt: Date(),
+                                          dt: "18:02",
                                           sun: InfoSunBO(type: 2, id: 2004688, country: "IT", sunrise: "08:21", sunset: "18:21"),
                                           timerZone: 7200, id: 3163858, name: "Madrid", cod: 200)
 }

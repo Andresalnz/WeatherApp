@@ -19,7 +19,7 @@ extension CurrentWeatherDTO {
                                 wind: wind?.toBo(),
                                 rain: rain?.toBo(),
                                 clouds: clouds?.toBo(),
-                                dt: dt,
+                                dt: dt?.toDate(timerZone?.timeIntervalSince1970 ?? 0.0),
                                 sun: sun?.toBo(timerZone?.timeIntervalSince1970 ?? 0.0),
                                 timerZone: timerZone?.timeIntervalSince1970,
                                 id: id,
@@ -126,5 +126,22 @@ extension Double {
             default:
                 return "Norte"
         }
+    }
+    
+    
+   
+}
+
+extension Date {
+    func toDate(_ timerZone: Double) -> String {
+      
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "HH:mm"
+        formatter1.locale = Locale(identifier: "es")
+        
+        let hourLocal = self.addingTimeInterval(timerZone - Double(TimeZone.current.secondsFromGMT()))
+     
+        
+        return  formatter1.string(from: hourLocal)
     }
 }
