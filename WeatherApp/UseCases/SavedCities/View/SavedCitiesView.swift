@@ -34,8 +34,9 @@ struct SavedCitiesView: View {
                     }
                     
                 }
-                .navigationTitle("Saved Cities")
+                
             }
+            .navigationTitle("Saved Cities")
             .navigationDestination(for: CityDataModel.self) { city in
                 CurrentweatherCitySavedView(city: city, vm: vm)
             }
