@@ -11,7 +11,7 @@ import SwiftData
 
 @Model
 class CityDataModel: Identifiable, Hashable {
-    @Attribute(.unique) var customId: Int
+    //@Attribute(.unique) var customId: Int
     var nameCity: String?
     var stateCity: String?
     var countryCity: String?
@@ -21,8 +21,8 @@ class CityDataModel: Identifiable, Hashable {
     var stateSky: String?
     var dt: String?
 
-    init(customId: Int, nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil) {
-        self.customId = customId
+    init(/*customId: Int,*/ nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil) {
+        //self.customId = customId
         self.nameCity = nameCity
         self.stateCity = stateCity
         self.countryCity = countryCity

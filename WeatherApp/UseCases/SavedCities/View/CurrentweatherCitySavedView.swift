@@ -34,5 +34,5 @@ struct CurrentweatherCitySavedView: View {
 
 #Preview {
     @Previewable @Environment(\.modelContext)  var context
-    CurrentweatherCitySavedView(city: CityDataModel(customId: 0, nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"), vm: SavedCitiesVM(database: CityDatabase(context: context)))
+    CurrentweatherCitySavedView(city: CityDataModel(nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"), vm: SavedCitiesVM(database: CityDatabase(context: context)))
 }
