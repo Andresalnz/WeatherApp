@@ -17,6 +17,7 @@ struct TabBarView: View {
         appearance.backgroundColor = .clear
         appearance.stackedLayoutAppearance.normal.iconColor = .white 
         appearance.stackedLayoutAppearance.selected.iconColor = .blue
+        appearance.backgroundColor = .black
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
     }
@@ -47,6 +48,7 @@ struct TabBarView: View {
             
         }
         .accentColor(.black)
+        .background(.black)
     }
 }
 
