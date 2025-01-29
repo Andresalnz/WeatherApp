@@ -40,7 +40,6 @@ struct SavedCitiesView: View {
                 CurrentweatherCitySavedView(city: city, vm: vm)
             }
             .listStyle(.plain)
-            .preferredColorScheme(.dark)
         }
     }
 }

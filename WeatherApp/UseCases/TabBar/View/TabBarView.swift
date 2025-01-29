@@ -31,7 +31,7 @@ struct TabBarView: View {
                         .foregroundStyle(.white)
                    
                 }
-                .tint(.black)
+                
                 .tag(0)
             MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
                 .tabItem {
@@ -47,8 +47,8 @@ struct TabBarView: View {
                 .tag(2)
             
         }
-        .accentColor(.black)
-        .background(.black)
+       
+     
     }
 }
 

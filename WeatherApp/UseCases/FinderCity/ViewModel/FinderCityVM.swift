@@ -33,7 +33,7 @@ class FinderCityVM: ObservableObject {
     
     func loadDataCities() async {
             $searchText
-                .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
+                //.debounce(for: .seconds(2), scheduler: DispatchQueue.main)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                         case .finished:

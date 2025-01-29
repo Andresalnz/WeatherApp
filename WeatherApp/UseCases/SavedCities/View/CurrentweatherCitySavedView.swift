@@ -29,7 +29,6 @@ struct CurrentweatherCitySavedView: View {
         .task {
             await vm.loadCityWeather(name: city.nameCity ?? "", state: city.stateCity ?? "", country: city.countryCity ?? "")
         }
-        .preferredColorScheme(.dark)
     }
 }
 
