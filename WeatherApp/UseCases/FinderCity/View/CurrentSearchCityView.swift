@@ -11,7 +11,7 @@ struct CurrentSearchCityView: View {
     
     var infoWeather: CurrentWeatherBO
     var saveCity: () async -> Void
-    
+    var dismissSearch: DismissSearchAction
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
     @Environment(\.dismiss) var dismiss
@@ -19,8 +19,8 @@ struct CurrentSearchCityView: View {
     var body: some View {
         NavigationView {
             VStack {
-                MainWeatherTemperatureView(infoTemperature: infoWeather)
                 ScrollView {
+                    MainWeatherTemperatureView(infoTemperature: infoWeather)
                     LazyVGrid(columns: rows, spacing: 0) {
                         MainWeatherSectionView(type: .sun, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .visibility, infoWeather: infoWeather)
@@ -31,23 +31,24 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
-            .preferredColorScheme(.dark)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Añadir") {
+                    Button("Add") {
                         Task {
                             await saveCity()
                         }
                         dismiss()
+                        dismissSearch()                       
                     }
-                    .tint(.black)
+                    .tint(.white)
                     .bold()
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancelar") {
+                    Button("Cancel") {
                         dismiss()
+                        dismissSearch()
                     }
-                    .tint(.black)
+                    .tint(.white)
                 }
                 
             }
@@ -56,6 +57,7 @@ struct CurrentSearchCityView: View {
     }
 }
 
-#Preview {
-    CurrentSearchCityView(infoWeather: .preview, saveCity: {print("hola")})
-}
+//#Preview {
+//    CurrentSearchCityView(infoWeather: .preview, saveCity: {print("hola")}, dismissSearch: DismissSearchAction())
+//        .preferredColorScheme(.dark)
+//}
