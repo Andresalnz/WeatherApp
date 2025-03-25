@@ -31,12 +31,11 @@ struct MainWeatherView: View {
                 }
             } else {
                 VStack {
-                    Text("Loading...")
+                    Text("-- --")
                         .font(.title)
                         .foregroundStyle(Color.white)
                 }
-                .frame(maxWidth: .infinity, alignment: .bottom)
-                .padding(.top, 300)
+                .padding(.top, 100)
             }
         }
         .preferredColorScheme(.dark)
@@ -44,5 +43,6 @@ struct MainWeatherView: View {
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: true))
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: false))
+        
 }
