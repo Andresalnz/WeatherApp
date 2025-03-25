@@ -52,6 +52,11 @@ class MainWeatherVM: ObservableObject {
                 await MainActor.run {
                     self.currentWeather = actualWeather.toBo()
                 }
+            } else {
+               let weatherTest = try await interactor.getCurrentWeatherTest()
+                await MainActor.run {
+                    self.currentWeather = weatherTest.toBo()
+                }
             }
         } catch let err {
             print("Error\(err)")
