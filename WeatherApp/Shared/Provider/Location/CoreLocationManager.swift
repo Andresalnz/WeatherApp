@@ -13,7 +13,6 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
     
     let locationManager: CLLocationManager = CLLocationManager()
     let weatherCoordinate = PassthroughSubject<CLLocationCoordinate2D?, Error>()
-    var coordinate: [Double] = []
     
     override init() {
         
@@ -23,11 +22,7 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func configureLocationManager() {
-        if CLLocationManager.headingAvailable() {
-            locationManager.requestWhenInUseAuthorization()
-        } else {
-            print("No se puede obtener la localización")
-        }
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -42,18 +37,13 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
         let status = locationManager.authorizationStatus
         switch status {
             case .authorizedAlways:
-                print("Autorizado para siempre")
                 locationManager.requestLocation()
             case .authorizedWhenInUse:
-                print("Autorizado para usar en el momento")
                 locationManager.requestLocation()
             case .denied:
-                print("No autorizado")
             case .notDetermined:
                 configureLocationManager()
-                print("no se ha determinado")
             case .restricted:
-                print("El acceso a la localización está restringido")
             @unknown default:
                 fatalError()
         }
