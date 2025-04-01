@@ -40,10 +40,10 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
                 locationManager.requestLocation()
             case .authorizedWhenInUse:
                 locationManager.requestLocation()
-            case .denied:
+            case .denied: break
             case .notDetermined:
                 configureLocationManager()
-            case .restricted:
+            case .restricted: break
             @unknown default:
                 fatalError()
         }
