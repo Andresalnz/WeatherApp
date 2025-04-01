@@ -10,22 +10,26 @@ import CoreLocation
 
 struct MainWeatherView: View {
     
-    @StateObject var vm: MainWeatherVM
+    @ObservedObject var vm: MainWeatherVM
     
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
     var body: some View {
         ScrollView {
             if vm.isLoading {
-                MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
-                LazyVGrid(columns: rows, spacing: 0) {
-                    MainWeatherSectionView(type: .sun, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .visibility, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .preasure, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .humidity, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .wind, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .rain, infoWeather: vm.currentWeather)
+                VStack {
+                    MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
+                    LazyVGrid(columns: rows, spacing: 20) {
+                        MainWeatherSectionView(type: .sun, infoWeather: vm.currentWeather)
+                        MainWeatherSectionView(type: .visibility, infoWeather: vm.currentWeather)
+                        MainWeatherSectionView(type: .preasure, infoWeather: vm.currentWeather)
+                        MainWeatherSectionView(type: .humidity, infoWeather: vm.currentWeather)
+                        MainWeatherSectionView(type: .wind, infoWeather: vm.currentWeather)
+                        MainWeatherSectionView(type: .rain, infoWeather: vm.currentWeather)
+                    }
+                    .padding()
                 }
+                
                 .task {
                     await vm.loadData()
                 }
@@ -33,16 +37,22 @@ struct MainWeatherView: View {
                 VStack {
                     Text("-- --")
                         .font(.title)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.black)
                 }
                 .padding(.top, 100)
             }
         }
-        .preferredColorScheme(.dark)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+        
     }
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: false))
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: true))
+        .background(
+            Color(red: 0.89, green: 0.95, blue: 0.99)
+            
+        )
         
 }
