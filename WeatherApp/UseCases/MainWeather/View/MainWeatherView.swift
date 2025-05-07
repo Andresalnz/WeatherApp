@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct MainWeatherView: View {
     
@@ -16,43 +15,44 @@ struct MainWeatherView: View {
     
     var body: some View {
         ScrollView {
-            if vm.isLoading {
-                VStack {
-                    MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
-                    LazyVGrid(columns: rows, spacing: 20) {
-                        MainWeatherSectionView(type: .sun, infoWeather: vm.currentWeather)
-                        MainWeatherSectionView(type: .visibility, infoWeather: vm.currentWeather)
-                        MainWeatherSectionView(type: .preasure, infoWeather: vm.currentWeather)
-                        MainWeatherSectionView(type: .humidity, infoWeather: vm.currentWeather)
-                        MainWeatherSectionView(type: .wind, infoWeather: vm.currentWeather)
-                        MainWeatherSectionView(type: .rain, infoWeather: vm.currentWeather)
+            switch vm.state {
+                case .loading:
+                    ProgressView()
+                case .success(let weather):
+                    VStack {
+                        MainWeatherTemperatureView(infoTemperature: weather)
+                        LazyVGrid(columns: rows, spacing: 20) {
+                            MainWeatherSectionView(type: .sun, infoWeather: weather)
+                            MainWeatherSectionView(type: .visibility, infoWeather: weather)
+                            MainWeatherSectionView(type: .preasure, infoWeather: weather)
+                            MainWeatherSectionView(type: .humidity, infoWeather: weather)
+                            MainWeatherSectionView(type: .wind, infoWeather: weather)
+                            MainWeatherSectionView(type: .rain, infoWeather: weather)
+                        }
+                        .padding()
                     }
-                    .padding()
-                }
-                
-                .task {
-                    await vm.loadData()
-                }
-            } else {
-                VStack {
-                    Text("-- --")
-                        .font(.title)
-                        .foregroundStyle(.black)
-                }
-                .padding(.top, 100)
+                case .error(let error):
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        
+                        Text(error)
+                            .font(.title2)
+                        
+                        Text("Por favor, inténtalo de nuevo más tarde.")
+                            .font(.body)
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
-        
     }
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: true))
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository())))
         .background(
             Color(red: 0.89, green: 0.95, blue: 0.99)
-            
         )
-        
 }
