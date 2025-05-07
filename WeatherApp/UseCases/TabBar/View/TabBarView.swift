@@ -17,7 +17,7 @@ enum elementTab: Int {
 struct TabBarView: View {
     //@Environment(\.modelContext) private var context
     @State private var selectedTab: elementTab = .home
-    @StateObject private var mainWeatherVM: MainWeatherVM = MainWeatherVM(locationManager: CoreLocationManager())
+    @StateObject private var mainWeatherVM: MainWeatherVM = MainWeatherVM()
     
     
     
