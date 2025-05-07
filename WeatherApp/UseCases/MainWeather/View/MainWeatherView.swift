@@ -18,6 +18,7 @@ struct MainWeatherView: View {
             switch vm.state {
                 case .loading:
                     ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .success(let weather):
                     VStack {
                         MainWeatherTemperatureView(infoTemperature: weather)
@@ -36,15 +37,23 @@ struct MainWeatherView: View {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.red)
-                        
-                        Text(error)
+                        Text(error.errorDescription!)
                             .font(.title2)
+                            .foregroundColor(.red)
                         
-                        Text("Por favor, inténtalo de nuevo más tarde.")
+                        Text(error.localizedDescription)
                             .font(.body)
                             .foregroundColor(.gray)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .alert("Seguro que quieres salir?", isPresented: $vm.showAlert) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Open systems") {
+                            vm.openSystemSettings()
+                        }
+                    } message: {
+                        Text("mensaje")
+                    }
             }
         }
     }

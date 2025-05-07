@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 import CoreLocation
+import UIKit
 
 enum ViewState<T> {
     case loading  // Cuando está cargando
     case success(T)  // Cuando los datos están listos
-    case error(String)
+    case error(ErrorHandler)
 }
-
 class MainWeatherVM: ObservableObject {
     
     //MARK: - Variables
@@ -22,7 +22,7 @@ class MainWeatherVM: ObservableObject {
     @Published var currentWeather: CurrentWeatherBO
     @Published var coordinate: CLLocationCoordinate2D?
     @Published var state: ViewState<CurrentWeatherBO> = .loading
-    
+    @Published var showAlert: Bool = false
     private let interactor: Interactor
     let locationManager: CoreLocationManager = CoreLocationManager()
     private var cancellables = Set<AnyCancellable>()
@@ -39,10 +39,9 @@ class MainWeatherVM: ObservableObject {
             .sink { completion in
                 switch completion {
                     case .finished:
-                        print("Final")
+                        print("finished")
                     case .failure(_):
-                        self.state = .error("No se pudo obtener la ubicación")
-                        print("Error completion")
+                        print("failure")
                 }
             } receiveValue: { [weak self] coord in
                 if let coord {
@@ -50,6 +49,9 @@ class MainWeatherVM: ObservableObject {
                     Task {
                         await self?.loadData()
                     }
+                } else {
+                    self?.state = .error(.invalidUrl)
+                    self?.showAlert.toggle()
                 }
             }
             .store(in: &cancellables)
@@ -67,11 +69,19 @@ class MainWeatherVM: ObservableObject {
                 }
             } else {
                 await MainActor.run {
-                    self.state = .error("Ocurrio un error")
+                    self.state = .error(.requestInvalid)
                 }
             }
         } catch let err {
             print("Error\(err)")
+        }
+    }
+    
+    //MARK: - openSystemSettings
+    // Método que abre los ajustes del dispositivo
+    func openSystemSettings() {
+        if let settings = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(settings)
         }
     }
 }
