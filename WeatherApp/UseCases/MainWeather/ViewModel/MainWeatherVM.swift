@@ -13,7 +13,7 @@ import UIKit
 enum ViewState<T> {
     case loading  // Cuando está cargando
     case success(T)  // Cuando los datos están listos
-    case error(ErrorHandler)
+    case error(AppError)
 }
 class MainWeatherVM: ObservableObject {
     
@@ -50,7 +50,7 @@ class MainWeatherVM: ObservableObject {
                         await self?.loadData()
                     }
                 } else {
-                    self?.state = .error(.invalidUrl)
+                    self?.state = .error(.locationServicesDisabled)
                     self?.showAlert.toggle()
                 }
             }
@@ -69,11 +69,18 @@ class MainWeatherVM: ObservableObject {
                 }
             } else {
                 await MainActor.run {
-                    self.state = .error(.requestInvalid)
+                    self.state = .error(.notReceiveCoordinates)
                 }
             }
+        } catch let err as AppError {
+            await MainActor.run {
+                self.state = .error(err)
+            }
         } catch let err {
-            print("Error\(err)")
+            await MainActor.run {
+                self.state = .error(.genericError)
+            }
+            
         }
     }
     
