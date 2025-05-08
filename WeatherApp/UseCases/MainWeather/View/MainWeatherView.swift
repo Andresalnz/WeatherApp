@@ -40,19 +40,15 @@ struct MainWeatherView: View {
                         Text(error.errorDescription!)
                             .font(.title2)
                             .foregroundColor(.red)
-                        
-                        Text(error.localizedDescription)
-                            .font(.body)
-                            .foregroundColor(.gray)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .alert("Seguro que quieres salir?", isPresented: $vm.showAlert) {
+                    .alert("Activa la ubicación", isPresented: $vm.showAlert) {
                         Button("Cancel", role: .cancel) {}
                         Button("Open systems") {
                             vm.openSystemSettings()
                         }
                     } message: {
-                        Text("mensaje")
+                        Text("Se necesita los permisos de ubicación para obtener la información del clima")
                     }
             }
         }
