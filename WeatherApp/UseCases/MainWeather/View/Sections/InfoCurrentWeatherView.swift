@@ -54,7 +54,7 @@ struct InfoCurrentWeatherView: View {
             .padding(.vertical, 5)
         }
         .padding()
-        .frame(maxHeight: .infinity)
+        .frame(maxHeight: 250)
         .background(Color(red: 0.56, green: 0.79, blue: 0.98))
         .clipShape(.buttonBorder)
         .shadow(color: .black.opacity(0.2), radius: 5, x: 2, y: 2)
@@ -63,6 +63,6 @@ struct InfoCurrentWeatherView: View {
 }
 
 #Preview {
-    InfoCurrentWeatherView(textLabel: "Sol", iconName: "sun.max.fill", infoText1: "Peusta de sol", infoText2: "Salida del sol", infoCurrentWeather: "", infoCurrentWeather2: "")
+    InfoCurrentWeatherView(textLabel: "Sol", iconName: "sun.max.fill", infoText1: "Peusta de sol", infoText2: "Salida del sol", infoCurrentWeather: "07:24", infoCurrentWeather2: "21:18")
 }
  
