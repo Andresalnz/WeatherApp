@@ -8,36 +8,33 @@
 import SwiftUI
 
 struct SearchCityView: View {
-    @Environment(\.dismissSearch) private var dismissSearch
+    
     var city: GeoCodingElementBO
+    @Binding var selectedCity: GeoCodingElementBO?
     @State var showSheet: Bool = false
-    @Binding var cityNameItem: String?
-    @Binding var cityStateItem: String?
-    @Binding var cityCountryItem: String?
+    
     var searchCityWeather: CurrentWeatherBO
-   
-    var saveCity: () async -> Void
+    
+    // var saveCity: () async -> Void
+    
     var body: some View {
-        if let name = city.name {
-            Button("\(name) - \(city.state ?? "") - \(city.country ?? "")") {
+        if let name = city.name, let state = city.state {
+            Button {
+                selectedCity = city
                 showSheet.toggle()
-                cityNameItem = name
-                cityStateItem = city.state ?? ""
-                cityCountryItem = city.country ?? ""
+            } label: {
+                Text("\(name) - \(state) - \(city.country ?? "")")
             }
-            .foregroundStyle(.white)
             .sheet(isPresented: $showSheet) {
                 NavigationStack {
-                    CurrentSearchCityView(infoWeather: searchCityWeather, saveCity: {await saveCity()}, dismissSearch: dismissSearch)
-                    
+                    CurrentSearchCityView(infoWeather: searchCityWeather)
                 }
-                
             }
         }
     }
 }
 
-//#Preview {
-//    SearchCityView(city: GeoCodingElementBO(name: "", lat: 10.0, lon: 10.0, country: "", state: ""), cityNameItem: .constant(""), cityStateItem: .constant(""), cityCountryItem: .constant(""), searchCityWeather: CurrentWeatherBO(id: 0), saveCity: {print("hola")})
-//        .environment(\.dismissSearch, <#T##value: V##V#>)
-//}
+#Preview {
+    SearchCityView(city: GeoCodingElementBO(name: "", lat: 10.0, lon: 10.0, country: "", state: ""), selectedCity: .constant(GeoCodingElementBO(name: "", lat: 10.0, lon: 10.0, country: "", state: "")), searchCityWeather: CurrentWeatherBO(id: 0))
+    
+}

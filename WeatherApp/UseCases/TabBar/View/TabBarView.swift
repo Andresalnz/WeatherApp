@@ -18,11 +18,11 @@ struct TabBarView: View {
     //@Environment(\.modelContext) private var context
     @State private var selectedTab: elementTab = .home
     @StateObject private var mainWeatherVM: MainWeatherVM = MainWeatherVM()
-    
+    @StateObject private var finderCityVM = FinderCityVM()
     
     
     //@StateObject private var savedCitiesVM = SavedCitiesVM(database: CityDatabase(context: context))
-    // @StateObject private var finderCityVM = FinderCityVM(database: CityDatabase(context: context))
+    
     
     init() {
         configureTabBarAppearance()
@@ -62,18 +62,16 @@ struct TabBarView: View {
                 }
                 .tag(elementTab.home)
             
-            
-            
-//            FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context)))
-//                .tabItem {
-//                    Image(systemName: "list.bullet")
-//                    Text("Search")
-//                }
-//                .tag(elementTab.search)
-            
+            FinderCityView(vm: finderCityVM)
+                .background(
+                    Color.red
+                )
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Search")
+                }
+                .tag(elementTab.search)
         }
-       
-     
     }
 }
 

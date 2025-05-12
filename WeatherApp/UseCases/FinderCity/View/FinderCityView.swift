@@ -8,29 +8,30 @@
 import SwiftUI
 
 struct FinderCityView: View {
-   
-    @StateObject var vm: FinderCityVM
+    
+    @ObservedObject var vm: FinderCityVM
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(vm.cities, id: \.id) { city in
-                    SearchCityView(city: city, cityNameItem: $vm.cityItem, cityStateItem: $vm.state, cityCountryItem: $vm.country, searchCityWeather: vm.searchCityWeather, saveCity: {await vm.saveCity()})
+                    SearchCityView(city: city, selectedCity: $vm.city, searchCityWeather: vm.searchCityWeather)
                 }
             }
-            .listStyle(.insetGrouped)
             .navigationTitle("Search City")
+            .searchable(text: $vm.searchText, prompt: "Search a City...")
         }
+        .listStyle(.plain)
         .task {
             await  vm.loadDataCities()
         }
-        .searchable(text: $vm.searchText, prompt: "Search a City...")
     }
 }
 
 #Preview {
-    @Previewable @Environment(\.modelContext)  var context
-    FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context), searchText: ""))
-        .preferredColorScheme(.dark)
-        
+    //3 @Previewable @Environment(\.modelContext)  var context
+    FinderCityView(vm: FinderCityVM(searchText: ""))
+        .background(
+            Color(red: 0.89, green: 0.95, blue: 0.99)
+        )
 }

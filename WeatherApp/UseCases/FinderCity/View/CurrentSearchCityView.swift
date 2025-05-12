@@ -9,9 +9,10 @@ import SwiftUI
 
 struct CurrentSearchCityView: View {
     
+    @Environment(\.dismissSearch) private var dismissSearch
     var infoWeather: CurrentWeatherBO
-    var saveCity: () async -> Void
-    var dismissSearch: DismissSearchAction
+    //var saveCity: () async -> Void
+   
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
     @Environment(\.dismiss) var dismiss
@@ -21,7 +22,7 @@ struct CurrentSearchCityView: View {
             VStack {
                 ScrollView {
                     MainWeatherTemperatureView(infoTemperature: infoWeather)
-                    LazyVGrid(columns: rows, spacing: 0) {
+                    LazyVGrid(columns: rows, spacing: 20) {
                         MainWeatherSectionView(type: .sun, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .visibility, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .preasure, infoWeather: infoWeather)
@@ -33,31 +34,28 @@ struct CurrentSearchCityView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
-                        Task {
-                            await saveCity()
-                        }
+                    Button("Save") {
+//                        Task {
+//                            await saveCity()
+//                        }
                         dismiss()
                         dismissSearch()                       
                     }
-                    .tint(.white)
                     .bold()
                 }
+                
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
                         dismissSearch()
                     }
-                    .tint(.white)
                 }
-                
             }
-            
         }
     }
 }
 
-//#Preview {
-//    CurrentSearchCityView(infoWeather: .preview, saveCity: {print("hola")}, dismissSearch: DismissSearchAction())
-//        .preferredColorScheme(.dark)
-//}
+#Preview {
+    CurrentSearchCityView(infoWeather: .preview)
+       
+}
