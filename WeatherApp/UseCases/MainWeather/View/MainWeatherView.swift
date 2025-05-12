@@ -42,13 +42,13 @@ struct MainWeatherView: View {
                             .foregroundColor(.red)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .alert("Activa la ubicación", isPresented: $vm.showAlert) {
+                    .alert("Activate location", isPresented: $vm.showAlert) {
                         Button("Cancel", role: .cancel) {}
                         Button("Open systems") {
                             vm.openSystemSettings()
                         }
                     } message: {
-                        Text("Se necesita los permisos de ubicación para obtener la información del clima")
+                        Text("Location permissions are required to obtain weather information.")
                     }
             }
         }

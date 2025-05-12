@@ -17,13 +17,13 @@ enum AppError: String, Error {
     public var errorDescription: String? {
         switch self {
             case .notReceiveCoordinates:
-                return NSLocalizedString("No es posible obtener las coordenadas", comment: "Las coordenadas no estan disponibles")
+                return NSLocalizedString("Unable to obtain coordinates", comment: "Las coordenadas no estan disponibles")
             case .locationServicesDisabled:
-                return NSLocalizedString("Ubicación desactivada", comment: "Los servicios de localizacion estan desactivados")
+                return NSLocalizedString("Location disabled", comment: "Los servicios de localizacion estan desactivados")
             case .urlnotValid:
-                return NSLocalizedString("Error en el servidor", comment: "La url no es correcta")
+                return NSLocalizedString("Server Error", comment: "La url no es correcta")
             case .baseURLNotValid:
-                return NSLocalizedString("Error en el servidor", comment: "La baseURL no es correcta")
+                return NSLocalizedString("Server Error", comment: "La baseURL no es correcta")
             case .genericError:
                 return NSLocalizedString("Error", comment: "Error generico")
                 

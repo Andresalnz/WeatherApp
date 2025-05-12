@@ -48,7 +48,7 @@ struct MainWeatherSectionView: View {
                     InfoCurrentWeatherView(textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: rain.rain)
                         
                 } else {
-                    InfoCurrentWeatherView(textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: "Sin datos")
+                    InfoCurrentWeatherView(textLabel: "Precipitation", iconName: "drop.fill", infoCurrentWeather: "There is no chance of rain")
                         
                 }
                 
@@ -57,5 +57,5 @@ struct MainWeatherSectionView: View {
 }
 
 #Preview {
-    MainWeatherSectionView(type: .preasure, infoWeather: .preview)
+    MainWeatherSectionView(type: .visibility, infoWeather: .preview)
 }
