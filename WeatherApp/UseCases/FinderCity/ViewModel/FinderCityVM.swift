@@ -14,6 +14,8 @@ class FinderCityVM: ObservableObject {
     private let interactor: Interactor
     private let database: CityDatabaseProtocol
     private var cancellable = Set<AnyCancellable>()
+    var msgAlert: String = ""
+    @Published var showAlert: Bool = false
     
     @Published var city: GeoCodingElementBO?
     @Published var searchText: String
@@ -78,13 +80,16 @@ class FinderCityVM: ObservableObject {
             let city: CityDataModel = CityDataModel(id: UUID(), nameCity: city?.name ?? "", stateCity: city?.state, countryCity: city?.country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
             do {
                 try await database.saveCity(city)
-                print("PERFECTO GUARDADO")
+                showAlert.toggle()
+                msgAlert = "¡Ciudad Guardada!"
             } catch let error as DatabaseError {
-                print(error.errorDescription!)
-                print("EROR")
-            } catch let err {
-                print("error: \(err)")
-                print("EROrR")
+                showAlert.toggle()
+                if let error = error.errorDescription {
+                    msgAlert = error
+                }
+            } catch let error {
+                showAlert.toggle()
+                msgAlert = error.localizedDescription
             }
             
         }

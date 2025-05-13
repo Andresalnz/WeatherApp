@@ -39,7 +39,7 @@ struct CurrentSearchCityView: View {
                             await finderVm.saveCity()
                         }
                         dismiss()
-                        dismissSearch()                       
+                        dismissSearch()
                     }
                     .bold()
                 }
@@ -50,11 +50,15 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
+            .alert(finderVm.msgAlert, isPresented: $finderVm.showAlert) {
+                Button("OK") {}
+            }
         }
     }
 }
 
 #Preview {
-    CurrentSearchCityView(infoWeather: .preview)
+    @Previewable @Environment(\.modelContext)  var context
+    CurrentSearchCityView(infoWeather: .preview).environmentObject(FinderCityVM(database: CityDatabase(context: context)))
        
 }
