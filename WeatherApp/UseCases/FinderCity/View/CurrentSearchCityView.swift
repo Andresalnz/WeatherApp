@@ -10,15 +10,15 @@ import SwiftUI
 struct CurrentSearchCityView: View {
     
     @Environment(\.dismissSearch) private var dismissSearch
-    var infoWeather: CurrentWeatherBO
-    //var saveCity: () async -> Void
-   
-    let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
-    
     @Environment(\.dismiss) var dismiss
     
+    @EnvironmentObject var finderVm: FinderCityVM
+    
+    var infoWeather: CurrentWeatherBO
+    let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 ScrollView {
                     MainWeatherTemperatureView(infoTemperature: infoWeather)
@@ -35,15 +35,14 @@ struct CurrentSearchCityView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-//                        Task {
-//                            await saveCity()
-//                        }
+                        Task {
+                            await finderVm.saveCity()
+                        }
                         dismiss()
                         dismissSearch()                       
                     }
                     .bold()
                 }
-                
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()

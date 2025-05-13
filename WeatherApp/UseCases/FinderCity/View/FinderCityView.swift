@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FinderCityView: View {
     
-    @ObservedObject var vm: FinderCityVM
+    @EnvironmentObject var vm: FinderCityVM
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(vm.cities, id: \.id) { city in
-                    SearchCityView(city: city, selectedCity: $vm.city, searchCityWeather: vm.searchCityWeather)
+                    SearchCityView(selectedCity: $vm.city, city: city, searchCityWeather: vm.searchCityWeather)
                 }
             }
             .navigationTitle("Search City")
@@ -29,8 +30,8 @@ struct FinderCityView: View {
 }
 
 #Preview {
-    //3 @Previewable @Environment(\.modelContext)  var context
-    FinderCityView(vm: FinderCityVM(searchText: ""))
+    @Previewable @Environment(\.modelContext)  var context
+    FinderCityView().environmentObject(FinderCityVM(database: CityDatabase(context: context)))
         .background(
             Color(red: 0.89, green: 0.95, blue: 0.99)
         )

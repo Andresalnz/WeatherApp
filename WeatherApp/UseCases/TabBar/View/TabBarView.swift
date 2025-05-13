@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum elementTab: Int {
     case savedCities = 0
@@ -15,16 +16,18 @@ enum elementTab: Int {
 }
 
 struct TabBarView: View {
-    //@Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
     @State private var selectedTab: elementTab = .home
     @StateObject private var mainWeatherVM: MainWeatherVM = MainWeatherVM()
-    @StateObject private var finderCityVM = FinderCityVM()
+    @StateObject private var finderCityVM: FinderCityVM
     
     
     //@StateObject private var savedCitiesVM = SavedCitiesVM(database: CityDatabase(context: context))
     
     
-    init() {
+    init(context: ModelContext) {
+        let service = CityDatabase(context: context)
+        self._finderCityVM = StateObject(wrappedValue: FinderCityVM(database: service))
         configureTabBarAppearance()
     }
     
@@ -62,7 +65,7 @@ struct TabBarView: View {
                 }
                 .tag(elementTab.home)
             
-            FinderCityView(vm: finderCityVM)
+            FinderCityView()
                 .background(
                     Color.red
                 )
@@ -71,10 +74,12 @@ struct TabBarView: View {
                     Text("Search")
                 }
                 .tag(elementTab.search)
+                .environmentObject(finderCityVM)
         }
     }
 }
 
 #Preview() {
-    TabBarView()
+    @Previewable @Environment(\.modelContext)  var context
+    TabBarView(context: context)
 }
