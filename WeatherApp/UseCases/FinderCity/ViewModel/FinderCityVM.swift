@@ -7,22 +7,23 @@
 
 import Foundation
 import Combine
+import SwiftData
 
 class FinderCityVM: ObservableObject {
     
     private let interactor: Interactor
-    //private let database: CityDatabaseProtocol
-    
+    private let database: CityDatabaseProtocol
     private var cancellable = Set<AnyCancellable>()
     
-    @Published var city: GeoCodingElementBO? = nil
+    @Published var city: GeoCodingElementBO?
     @Published var searchText: String
     @Published var cities: [GeoCodingElementBO]
     @Published var searchCityWeather: CurrentWeatherBO
     
-    init(interactor: Interactor = Weather(repository: Repository()), /*database: CityDatabaseProtocol,*/ searchText: String = "", cities: [GeoCodingElementBO] = [], searchCityWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1)) {
+    init(interactor: Interactor = Weather(repository: Repository()), database: CityDatabaseProtocol, city: GeoCodingElementBO? = nil, searchText: String = "", cities: [GeoCodingElementBO] = [], searchCityWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1)) {
         self.interactor = interactor
-        //self.database = database
+        self.database = database
+        self.city = city
         self.searchText = searchText
         self.cities = cities
         self.searchCityWeather = searchCityWeather
@@ -72,9 +73,19 @@ class FinderCityVM: ObservableObject {
             .store(in: &cancellable)
     }
     
-    //    func saveCity() async {
-    //        let city: CityDataModel = CityDataModel(nameCity: searchCityWeather.name ?? "", stateCity: state, countryCity: country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
-    //
-    //        await database.saveCity(city)
-    //    }
+    //MARK: - saveCity
+        func saveCity() async {
+            let city: CityDataModel = CityDataModel(id: UUID(), nameCity: city?.name ?? "", stateCity: city?.state, countryCity: city?.country, temperature: searchCityWeather.weatherMain?.temp ?? 0.0, temperatureMax: searchCityWeather.weatherMain?.tempMax ?? 0.0, temperatureMin: searchCityWeather.weatherMain?.tempMin ?? 0.0 , stateSky: searchCityWeather.weather?.first?.main ?? "", dt: searchCityWeather.dt ?? "")
+            do {
+                try await database.saveCity(city)
+                print("PERFECTO GUARDADO")
+            } catch let error as DatabaseError {
+                print(error.errorDescription!)
+                print("EROR")
+            } catch let err {
+                print("error: \(err)")
+                print("EROrR")
+            }
+            
+        }
 }
