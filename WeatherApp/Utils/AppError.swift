@@ -30,3 +30,20 @@ enum AppError: String, Error {
         }
     }
 }
+
+
+enum DatabaseError: String, Error {
+    case saveFailed
+    case genericError
+    
+    public var errorDescription: String? {
+        switch self {
+            case .saveFailed:
+                return NSLocalizedString("Error saving data", comment: "Error al guardar los datos")
+                
+            case .genericError:
+                return NSLocalizedString("Error", comment: "Error generico")
+                
+        }
+    }
+}
