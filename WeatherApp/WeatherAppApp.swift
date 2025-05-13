@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct WeatherAppApp: App {
     
-    var container: ModelContainer {
+    let container: ModelContainer = {
         let schema = Schema([CityDataModel.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
@@ -22,11 +22,11 @@ struct WeatherAppApp: App {
             print("Error container | \(err.localizedDescription)")
             fatalError()
         }
-    }
+    }()
         
     var body: some Scene {
         WindowGroup {
-            TabBarView()
+            TabBarView(context: container.mainContext)
                 .modelContainer(container)
         }
     }
