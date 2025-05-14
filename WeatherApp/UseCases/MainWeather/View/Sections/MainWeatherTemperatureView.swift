@@ -12,22 +12,23 @@ struct MainWeatherTemperatureView: View {
     var infoTemperature: CurrentWeatherBO
     
     var body: some View {
-        
-        Text(infoTemperature.name ?? "")
-            .font(.title3)
-            .padding(.top)
-        Text("\(infoTemperature.weatherMain?.temp ?? 20.0, specifier: "%.0fº")")
-            .font(.title)
-        HStack {
+        VStack(alignment: .center) {
+            Text(infoTemperature.name ?? "")
+                .font(.title)
+                .padding(.top)
+                .foregroundColor(Color(red: 0.08, green: 0.39, blue: 0.75))
+            Text("\(infoTemperature.weatherMain?.temp ?? 20.0, specifier: "%.0fº")")
+                .font(.system(size: 50, weight: .bold))
+            
             Text(infoTemperature.weather?.first?.main ?? "")
-                .font(.title3)
+                .foregroundColor(.gray)
+            
+            HStack {
+                Text("Max. \(infoTemperature.weatherMain?.tempMax ?? 0.0, specifier: "%.0fº")")
+                Text("Min. \(infoTemperature.weatherMain?.tempMin ?? 0.0, specifier: "%.0fº") ")
+            }
+            Text("Feel. \(infoTemperature.weatherMain?.feeling ?? 0.0, specifier: "%.0fº") ")
         }
-        HStack {
-            Text("Maxima. \(infoTemperature.weatherMain?.tempMax ?? 0.0, specifier: "%.0fº")")
-            Text("Minima. \(infoTemperature.weatherMain?.tempMin ?? 0.0, specifier: "%.0fº") ")
-        }
-        .font(.headline)
-        
     }
 }
 

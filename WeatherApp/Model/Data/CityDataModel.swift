@@ -10,8 +10,8 @@ import SwiftData
 
 
 @Model
-class CityDataModel: Identifiable, Hashable {
-    //@Attribute(.unique) var customId: Int
+final class CityDataModel: Identifiable, Hashable, Sendable {
+    @Attribute(.unique) var id: UUID
     var nameCity: String?
     var stateCity: String?
     var countryCity: String?
@@ -20,9 +20,11 @@ class CityDataModel: Identifiable, Hashable {
     var temperatureMin: Double?
     var stateSky: String?
     var dt: String?
+    var latitude: Double?
+    var longitude: Double?
 
-    init(/*customId: Int,*/ nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil) {
-        //self.customId = customId
+    init(id: UUID, nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil, latitude: Double? = nil, longitude: Double? = nil) {
+        self.id = id
         self.nameCity = nameCity
         self.stateCity = stateCity
         self.countryCity = countryCity
@@ -31,5 +33,7 @@ class CityDataModel: Identifiable, Hashable {
         self.temperatureMin = temperatureMin
         self.stateSky = stateSky
         self.dt = dt
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }

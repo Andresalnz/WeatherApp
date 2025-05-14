@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import SwiftData
+
+enum elementTab: Int {
+    case savedCities = 0
+    case home = 1
+    case search = 2
+    
+}
 
 struct TabBarView: View {
     @Environment(\.modelContext) private var context
-    @State private var selectedTab = 1
+    @State private var selectedTab: elementTab = .home
+    @StateObject private var mainWeatherVM: MainWeatherVM = MainWeatherVM()
+    @StateObject private var finderCityVM: FinderCityVM
+    @StateObject private var savedCitiesVM: SavedCitiesVM
     
-    init() {
+    
+    init(context: ModelContext) {
+        let service = CityDatabase(context: context)
+        self._finderCityVM = StateObject(wrappedValue: FinderCityVM(database: service))
+        self._savedCitiesVM = StateObject(wrappedValue: SavedCitiesVM(database: service))
+        configureTabBarAppearance()
+    }
+    
+    private func configureTabBarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .clear
@@ -24,34 +43,40 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            SavedCitiesView(vm: SavedCitiesVM(database: CityDatabase(context: context)))
-            
+            SavedCitiesView(vm: savedCitiesVM)
                 .tabItem {
                     Image(systemName: "bookmark.fill")
                         .foregroundStyle(.white)
-                   
+                   Text("Saved cities")
                 }
-                
-                .tag(0)
-            MainWeatherView(vm: MainWeatherVM(locationManager: CoreLocationManager()))
+                .tag(elementTab.savedCities)
+               
+            
+            MainWeatherView(vm: mainWeatherVM)
+                .background(
+                    Color(red: 0.89, green: 0.95, blue: 0.99)
+                    
+                )
                 .tabItem {
                     Image(systemName: "house.fill")
-                    
+                    Text("Home")
                 }
-                .tag(1)
-            FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context)))
+                .tag(elementTab.home)
+            
+            FinderCityView(vm: finderCityVM)
+                .background(
+                    Color.red
+                )
                 .tabItem {
                     Image(systemName: "list.bullet")
-                    
+                    Text("Search")
                 }
-                .tag(2)
-            
+                .tag(elementTab.search)
         }
-       
-     
     }
 }
 
-#Preview {
-    TabBarView()
+#Preview() {
+    @Previewable @Environment(\.modelContext)  var context
+    TabBarView(context: context)
 }

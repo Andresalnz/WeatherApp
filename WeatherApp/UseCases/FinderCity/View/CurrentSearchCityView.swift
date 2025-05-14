@@ -9,19 +9,20 @@ import SwiftUI
 
 struct CurrentSearchCityView: View {
     
+    @Environment(\.dismissSearch) private var dismissSearch
+    @Environment(\.dismiss) var dismiss
+    @State var showAlert: Bool = false
+    
+    var onSelect: () -> Void
     var infoWeather: CurrentWeatherBO
-    var saveCity: () async -> Void
-    var dismissSearch: DismissSearchAction
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
-    @Environment(\.dismiss) var dismiss
-    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 ScrollView {
                     MainWeatherTemperatureView(infoTemperature: infoWeather)
-                    LazyVGrid(columns: rows, spacing: 0) {
+                    LazyVGrid(columns: rows, spacing: 20) {
                         MainWeatherSectionView(type: .sun, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .visibility, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .preasure, infoWeather: infoWeather)
@@ -31,16 +32,22 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
+            .alert("Do you want to save this city?", isPresented: $showAlert) {
+                Button("OK") {
+                    Task {
+                        onSelect()
+                        dismiss()
+                        dismissSearch()
+                    }
+                    
+                }
+                Button("Cancel"){}
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add") {
-                        Task {
-                            await saveCity()
-                        }
-                        dismiss()
-                        dismissSearch()                       
+                    Button("Save") {
+                        showAlert = true
                     }
-                    .tint(.white)
                     .bold()
                 }
                 ToolbarItem(placement: .topBarLeading) {
@@ -48,16 +55,14 @@ struct CurrentSearchCityView: View {
                         dismiss()
                         dismissSearch()
                     }
-                    .tint(.white)
                 }
-                
             }
-            
         }
     }
 }
 
-//#Preview {
-//    CurrentSearchCityView(infoWeather: .preview, saveCity: {print("hola")}, dismissSearch: DismissSearchAction())
-//        .preferredColorScheme(.dark)
-//}
+#Preview {
+    @Previewable @Environment(\.modelContext)  var context
+    CurrentSearchCityView(onSelect: {}, infoWeather: CurrentWeatherBO(id: 1))
+       
+}

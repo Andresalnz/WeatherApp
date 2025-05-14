@@ -13,7 +13,7 @@ protocol DataRepository {
 
 struct Repository: DataRepository {
     func getJSON<T>(url: URL?, type: T.Type) async throws -> T where T: Codable {
-        guard let url = url else { throw fatalError() }
+        guard let url = url else { throw AppError.urlnotValid }
         let (data, _) = try await URLSession.shared.data(from: url)
         let weatherModel = try JSONDecoder().decode(type, from: data)
         

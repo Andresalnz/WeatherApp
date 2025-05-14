@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 protocol CityDatabaseProtocol {
-    func saveCity(_ city: CityDataModel) async
-    func deleteCity(_ city: CityDataModel?) async
+    func saveCity(_ city: CityDataModel) async throws
+    func deleteCity(_ city: CityDataModel?) async throws
     var context: ModelContext? { get }
 }
 
@@ -19,25 +19,17 @@ struct CityDatabase: CityDatabaseProtocol {
     let context: ModelContext?
     
     @MainActor
-    func saveCity(_ city: CityDataModel) {
+    func saveCity(_ city: CityDataModel) async throws {
         context?.insert(city)
-        do {
-            try context?.save()
-        } catch let err {
-            print(err.localizedDescription)
-            
-        }
+        try context?.save()
     }
-    
+
+
     @MainActor
-    func deleteCity(_ city: CityDataModel?) {
-        if let city = city, let model = city.modelContext {
+    func deleteCity(_ city: CityDataModel?) async throws {
+        if let city = city {
             context?.delete(city)
         }
-        do {
-            try context?.save()
-        } catch let err {
-            print("error al borrar \(err.localizedDescription)")
-        }
+        try context?.save()
     }
 }

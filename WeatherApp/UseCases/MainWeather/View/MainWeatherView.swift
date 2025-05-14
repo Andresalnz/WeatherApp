@@ -6,43 +6,58 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct MainWeatherView: View {
     
-    @StateObject var vm: MainWeatherVM
+    @ObservedObject var vm: MainWeatherVM
     
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
     var body: some View {
         ScrollView {
-            if vm.isLoading {
-                MainWeatherTemperatureView(infoTemperature: vm.currentWeather)
-                LazyVGrid(columns: rows, spacing: 0) {
-                    MainWeatherSectionView(type: .sun, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .visibility, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .preasure, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .humidity, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .wind, infoWeather: vm.currentWeather)
-                    MainWeatherSectionView(type: .rain, infoWeather: vm.currentWeather)
-                }
-                .task {
-                    await vm.loadData()
-                }
-            } else {
-                VStack {
-                    Text("-- --")
-                        .font(.title)
-                        .foregroundStyle(Color.white)
-                }
-                .padding(.top, 100)
+            switch vm.state {
+                case .loading:
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                case .success(let weather):
+                    VStack {
+                        MainWeatherTemperatureView(infoTemperature: weather)
+                        LazyVGrid(columns: rows, spacing: 20) {
+                            MainWeatherSectionView(type: .sun, infoWeather: weather)
+                            MainWeatherSectionView(type: .visibility, infoWeather: weather)
+                            MainWeatherSectionView(type: .preasure, infoWeather: weather)
+                            MainWeatherSectionView(type: .humidity, infoWeather: weather)
+                            MainWeatherSectionView(type: .wind, infoWeather: weather)
+                            MainWeatherSectionView(type: .rain, infoWeather: weather)
+                        }
+                        .padding()
+                    }
+                case .error(let error):
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        Text(error.errorDescription!)
+                            .font(.title2)
+                            .foregroundColor(.red)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .alert("Activate location", isPresented: $vm.showAlert) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Open systems") {
+                            vm.openSystemSettings()
+                        }
+                    } message: {
+                        Text("Location permissions are required to obtain weather information.")
+                    }
             }
         }
-        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
-    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository()), locationManager: CoreLocationManager(), isLoading: false))
-        
+    MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository())))
+        .background(
+            Color(red: 0.89, green: 0.95, blue: 0.99)
+        )
 }

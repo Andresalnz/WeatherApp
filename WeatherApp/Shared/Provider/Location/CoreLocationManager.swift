@@ -29,7 +29,6 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
         if let location = locations.last {
             let coord = location.coordinate
             weatherCoordinate.send(coord)
-            locationManager.stopUpdatingLocation()
         }
     }
     
@@ -41,9 +40,10 @@ class CoreLocationManager: NSObject, CLLocationManagerDelegate {
             case .authorizedWhenInUse:
                 locationManager.requestLocation()
             case .denied:
+                weatherCoordinate.send(nil)
             case .notDetermined:
                 configureLocationManager()
-            case .restricted:
+            case .restricted: break
             @unknown default:
                 fatalError()
         }

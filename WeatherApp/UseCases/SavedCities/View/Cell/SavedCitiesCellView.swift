@@ -34,16 +34,15 @@ struct SavedCitiesCellView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical)
-        
-        .overlay {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(.secondary, lineWidth: 3)
+        .background(
+            Color(red: 0.56, green: 0.79, blue: 0.98)
+                .cornerRadius(10)
                 .padding(.horizontal, 5)
-        }
+        )
     }
 }
 
 #Preview {
-    SavedCitiesCellView(city: CityDataModel( nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"))
+    SavedCitiesCellView(city: CityDataModel( id: UUID(), nameCity: "Madrid", stateCity: "Comunidad de Madrid", countryCity: "ES", temperature: 12, temperatureMax: 20, temperatureMin: 7, stateSky: "Clouds", dt: "18:30"))
         .preferredColorScheme(.dark)
 }
