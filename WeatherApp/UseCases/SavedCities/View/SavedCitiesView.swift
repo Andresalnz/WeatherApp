@@ -9,10 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct SavedCitiesView: View {
-    
     @Query(sort: [SortDescriptor(\CityDataModel.nameCity)]) var cities: [CityDataModel]
-    @StateObject var vm: SavedCitiesVM
-    @Environment(\.modelContext) private var context
+    @ObservedObject var vm: SavedCitiesVM
     
     var body: some View {
         NavigationStack {
@@ -20,8 +18,8 @@ struct SavedCitiesView: View {
                 ForEach(cities, id:\.id) { city in
                     NavigationLink(value: city) {
                         SavedCitiesCellView(city: city)
-                            .swipeActions {
-                                Button {
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
                                     Task {
                                         await vm.deleteCity(at: city)
                                     }
@@ -29,16 +27,15 @@ struct SavedCitiesView: View {
                                     Image(systemName: "trash")
                                 }
                             }
-                            .listRowSeparator(.hidden)
-                            .padding(.vertical)
                     }
-                    
                 }
-                
             }
             .navigationTitle("Saved Cities")
             .navigationDestination(for: CityDataModel.self) { city in
-                CurrentweatherCitySavedView(city: city, vm: vm)
+                CurrentweatherCitySavedView(city: city, savedCityWeather: vm.savedCityWeather)
+                    .task {
+                        await vm.loadCityWeather(lat: city.latitude ?? 0.0, long: city.longitude ?? 0.0)
+                    }
             }
             .listStyle(.plain)
         }
@@ -47,5 +44,5 @@ struct SavedCitiesView: View {
 
 #Preview {
     @Previewable @Environment(\.modelContext)  var context
-    SavedCitiesView(vm: SavedCitiesVM (database: CityDatabase(context: context)))
+    SavedCitiesView(vm: SavedCitiesVM(database: CityDatabase(context: context)))
 }

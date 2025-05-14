@@ -43,14 +43,14 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            SavedCitiesView()
+            SavedCitiesView(vm: savedCitiesVM)
                 .tabItem {
                     Image(systemName: "bookmark.fill")
                         .foregroundStyle(.white)
                    Text("Saved cities")
                 }
                 .tag(elementTab.savedCities)
-                .environmentObject(savedCitiesVM)
+               
             
             MainWeatherView(vm: mainWeatherVM)
                 .background(
