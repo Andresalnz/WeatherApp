@@ -20,8 +20,10 @@ final class CityDataModel: Identifiable, Hashable, Sendable {
     var temperatureMin: Double?
     var stateSky: String?
     var dt: String?
+    var latitude: Double?
+    var longitude: Double?
 
-    init(id: UUID, nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil) {
+    init(id: UUID, nameCity: String? = nil, stateCity: String? = nil, countryCity: String? = nil, temperature: Double? = nil, temperatureMax: Double? = nil, temperatureMin: Double? = nil, stateSky: String? = nil, dt: String? = nil, latitude: Double? = nil, longitude: Double? = nil) {
         self.id = id
         self.nameCity = nameCity
         self.stateCity = stateCity
@@ -31,5 +33,7 @@ final class CityDataModel: Identifiable, Hashable, Sendable {
         self.temperatureMin = temperatureMin
         self.stateSky = stateSky
         self.dt = dt
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }
