@@ -11,9 +11,9 @@ struct CurrentSearchCityView: View {
     
     @Environment(\.dismissSearch) private var dismissSearch
     @Environment(\.dismiss) var dismiss
+    @State var showAlert: Bool = false
     
-    @EnvironmentObject var finderVm: FinderCityVM
-    
+    var onSelect: () -> Void
     var infoWeather: CurrentWeatherBO
     let rows = [GridItem(.flexible()), GridItem(.flexible()) ]
     
@@ -32,14 +32,21 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
+            .alert("Do you want to save this city?", isPresented: $showAlert) {
+                Button("OK") {
+                    Task {
+                        onSelect()
+                        dismiss()
+                        dismissSearch()
+                    }
+                    
+                }
+                Button("Cancel"){}
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        Task {
-                            await finderVm.saveCity()
-                        }
-                        dismiss()
-                        dismissSearch()
+                        showAlert = true
                     }
                     .bold()
                 }
@@ -50,15 +57,12 @@ struct CurrentSearchCityView: View {
                     }
                 }
             }
-            .alert(finderVm.msgAlert, isPresented: $finderVm.showAlert) {
-                Button("OK") {}
-            }
         }
     }
 }
 
 #Preview {
     @Previewable @Environment(\.modelContext)  var context
-    CurrentSearchCityView(infoWeather: .preview).environmentObject(FinderCityVM(database: CityDatabase(context: context)))
+    CurrentSearchCityView(onSelect: {}, infoWeather: CurrentWeatherBO(id: 1))
        
 }

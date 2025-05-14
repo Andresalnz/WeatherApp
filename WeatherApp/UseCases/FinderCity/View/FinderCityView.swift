@@ -10,17 +10,30 @@ import SwiftData
 
 struct FinderCityView: View {
     
-    @EnvironmentObject var vm: FinderCityVM
+    @ObservedObject var vm: FinderCityVM
+    @State var showSheet: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(vm.cities, id: \.id) { city in
-                    SearchCityView(selectedCity: $vm.city, city: city, searchCityWeather: vm.searchCityWeather)
+                    SearchCityView(city: city) {
+                        showSheet.toggle()
+                        Task {
+                         try await vm.loadSelectedCity(city: city)
+                        }
+                    }
                 }
             }
             .navigationTitle("Search City")
             .searchable(text: $vm.searchText, prompt: "Search a City...")
+            .sheet(isPresented: $showSheet) {
+                CurrentSearchCityView(onSelect:{
+                    Task {
+                        await vm.saveCity()
+                    }
+                }, infoWeather: vm.searchCityWeather)
+            }
         }
         .listStyle(.plain)
         .task {
@@ -31,7 +44,7 @@ struct FinderCityView: View {
 
 #Preview {
     @Previewable @Environment(\.modelContext)  var context
-    FinderCityView().environmentObject(FinderCityVM(database: CityDatabase(context: context)))
+    FinderCityView(vm: FinderCityVM(database: CityDatabase(context: context)))
         .background(
             Color(red: 0.89, green: 0.95, blue: 0.99)
         )
