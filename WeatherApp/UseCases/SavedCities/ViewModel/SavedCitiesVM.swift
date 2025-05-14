@@ -17,7 +17,6 @@ class SavedCitiesVM: ObservableObject {
     @Published var cityName: String? = nil
     @Published var cityCountry: String? = nil
     @Published var cityState: String? = nil
-    var form: String = ""
     
     init(interactor: Interactor = Weather(repository: Repository()), savedCityWeather: CurrentWeatherBO = CurrentWeatherBO(id: 1), database: CityDatabaseProtocol) {
         self.interactor = interactor
@@ -25,10 +24,9 @@ class SavedCitiesVM: ObservableObject {
         self.database = database
     }
     
-    func loadCityWeather(name: String, state: String, country: String) async {
+    func loadCityWeather(lat: Double, long: Double) async {
         do {
-            form = [name, state, country].compactMap({$0}).joined(separator: ", ")
-            let actualSearchCityWeather = try await interactor.getSearchCity(nameCity: form)
+            let actualSearchCityWeather = try await interactor.getSearchCity(lat: lat, long: long)
             await MainActor.run {
                 self.savedCityWeather = actualSearchCityWeather.toBo()
             }
@@ -38,8 +36,13 @@ class SavedCitiesVM: ObservableObject {
     }
     
     func deleteCity(at city: CityDataModel) async  {
-        await database.deleteCity(city)
+        do {
+            try await database.deleteCity(city)
+        } catch let error as DatabaseError {
+            print(error.localizedDescription)
+        } catch let error {
+            print(error.localizedDescription)
+            
+        }
     }
-    
-    
 }
