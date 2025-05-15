@@ -18,10 +18,9 @@ struct CurrentweatherCitySavedView: View {
             MainWeatherTemperatureView(infoTemperature: savedCityWeather)
             LazyVGrid(columns: rows, spacing: 20) {
                 MainWeatherSectionView(type: .sun, infoWeather: savedCityWeather)
-                MainWeatherSectionView(type: .visibility, infoWeather: savedCityWeather)
+                MainWeatherSectionView(type: .wind, infoWeather: savedCityWeather)
                 MainWeatherSectionView(type: .preasure, infoWeather: savedCityWeather)
                 MainWeatherSectionView(type: .humidity, infoWeather: savedCityWeather)
-                MainWeatherSectionView(type: .wind, infoWeather: savedCityWeather)
                 MainWeatherSectionView(type: .rain, infoWeather: savedCityWeather)
             }
         }

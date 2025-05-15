@@ -24,10 +24,9 @@ struct CurrentSearchCityView: View {
                     MainWeatherTemperatureView(infoTemperature: infoWeather)
                     LazyVGrid(columns: rows, spacing: 20) {
                         MainWeatherSectionView(type: .sun, infoWeather: infoWeather)
-                        MainWeatherSectionView(type: .visibility, infoWeather: infoWeather)
+                        MainWeatherSectionView(type: .wind, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .preasure, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .humidity, infoWeather: infoWeather)
-                        MainWeatherSectionView(type: .wind, infoWeather: infoWeather)
                         MainWeatherSectionView(type: .rain, infoWeather: infoWeather)
                     }
                 }
