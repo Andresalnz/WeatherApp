@@ -51,12 +51,7 @@ struct TabBarView: View {
                 }
                 .tag(elementTab.savedCities)
                
-            
             MainWeatherView(vm: mainWeatherVM)
-                .background(
-                    Color(red: 0.89, green: 0.95, blue: 0.99)
-                    
-                )
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
@@ -64,9 +59,6 @@ struct TabBarView: View {
                 .tag(elementTab.home)
             
             FinderCityView(vm: finderCityVM)
-                .background(
-                    Color.red
-                )
                 .tabItem {
                     Image(systemName: "list.bullet")
                     Text("Search")

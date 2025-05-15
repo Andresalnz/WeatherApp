@@ -56,7 +56,4 @@ struct MainWeatherView: View {
 
 #Preview {
     MainWeatherView(vm: MainWeatherVM(interactor: WeatherTest(repository: Repository())))
-        .background(
-            Color(red: 0.89, green: 0.95, blue: 0.99)
-        )
 }
