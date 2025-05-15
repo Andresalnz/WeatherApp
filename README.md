@@ -16,7 +16,7 @@ Aplicación desarrollada para iOS en la que puedes consultar el tiempo de tu ubi
 ## Capturas
 | Clima de la ubicación actual  | Buscador de ciudades | Detalle ciudad buscada| Ciudades guardadas |Swipe borrar |
 | ----------- | ------------ | ------------ | ------------ | ------------ | 
-| ![Ubicación actual](ScreenShots/Home.png) | ![Buscador ciudades](ScreenShots/ListSearchCities.png) | ![Detalle ciudad buscada](ScreenShots/CitySheet.png) | ![Ciudades guardadas](ScreenShots/SavedCities.png) | ![Swipe Borrar](ScreenShots/SwipeDelete.png)|
+| ![Ubicación actual](ScreenShot/Home.png) | ![Buscador ciudades](ScreenShot/ListSearchCities.png) | ![Detalle ciudad buscada](ScreenShot/CitySheet.png) | ![Ciudades guardadas](ScreenShot/SavedCities.png) | ![Swipe Borrar](ScreenShot/SwipeDelete.png)|
 
 ## Tecnologías utilizadas
 
