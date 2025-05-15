@@ -1,6 +1,6 @@
 # WheaterApp
 
-Aplicación desarrollada para iOS en la que puedes consultar el tiempo de tú ubicación actual. Además, es posible, buscar cualquier localización para acceder a su clima y tener la opción de guardarla para poder consultarcualquier momento. Este proyecto lo he creado con la finalidad de seguir aprendiendo, practicando y consolidando conocimientos en el desarrollo en iOS.
+Aplicación desarrollada para iOS en la que puedes consultar el tiempo de tu ubicación actual. Además, es posible, buscar cualquier localización para acceder a su clima y tener la opción de guardarla para poder consultarla en cualquier momento. Este proyecto lo he creado con la finalidad de seguir aprendiendo, practicando y consolidando conocimientos en el desarrollo en iOS.
 
 ## Características
 
@@ -8,9 +8,10 @@ Aplicación desarrollada para iOS en la que puedes consultar el tiempo de tú ub
 - Obtención de la ubicación en tiempo real con **CoreLocation**
 - Almacenamiento local y persistente con **SwifData**
 - Desarrollo reactivo utilizando **Combine**
-- Sigue los principios **SOLID** para mantener un código limpio, mantenible y extensible
+- Siguiendo los principios **SOLID** para mantener un código limpio, mantenible y escalable
 - Arquitectura **MVVM**
 - Navegación fluida e intuitiva
+- Desarrollo para iOS 17+
 
 ## Capturas
 | Clima de la ubicación actual  | Buscador de ciudades | Detalle ciudad buscada| Ciudades guardadas |Swipe borrar |
@@ -30,14 +31,14 @@ Aplicación desarrollada para iOS en la que puedes consultar el tiempo de tú ub
 
 1. Clona el repositorio
 
-2. Abre el proyecto en Xcode
+```bash script
+git clone https://github.com/Andresalnz/WeatherApp.git
+```
+2. Abre el archivo xcodeproj en Xcode
 
-3. Si usas un simulador, asegurate de configurar una localización
+3. Ejecuta el proyecto con Cmd + R o play en Xcode
 
-4. Si usas un dispositivo real, asegurate de usar una version de iOS 17+
-
-5. Ejecuta el proyecto com Cmd + R o play en Xcode
-
+> Si usas un simulador, asegurate de configurar una localización.
 ## Contribuciones
 
 Actualmente esta abierto a cualquier contribución, feedback o sugerencia.
