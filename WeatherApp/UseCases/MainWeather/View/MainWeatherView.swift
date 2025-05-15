@@ -24,10 +24,9 @@ struct MainWeatherView: View {
                         MainWeatherTemperatureView(infoTemperature: weather)
                         LazyVGrid(columns: rows, spacing: 20) {
                             MainWeatherSectionView(type: .sun, infoWeather: weather)
-                            MainWeatherSectionView(type: .visibility, infoWeather: weather)
+                            MainWeatherSectionView(type: .wind, infoWeather: weather)
                             MainWeatherSectionView(type: .preasure, infoWeather: weather)
                             MainWeatherSectionView(type: .humidity, infoWeather: weather)
-                            MainWeatherSectionView(type: .wind, infoWeather: weather)
                             MainWeatherSectionView(type: .rain, infoWeather: weather)
                         }
                         .padding()
